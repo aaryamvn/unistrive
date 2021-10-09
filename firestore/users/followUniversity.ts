@@ -15,7 +15,7 @@ export const followUniversity = async (
   const university = await findUniversityByName(universityName);
   const universityDoc = universitiesCollection.doc(university.id);
 
-  if (userDoc && university) {
+  if (userDoc && university && user) {
     // user part
     let followingUnis: string[] = user.followingUniNames || [];
     followingUnis.push(universityName);
