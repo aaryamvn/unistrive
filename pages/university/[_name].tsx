@@ -13,7 +13,7 @@ const UniversityPage = () => {
 
   useEffect(() => {
     findUniversityById(name as string).then((u) => setUniversity(u));
-  }, []);
+  }, [name]);
 
   return <p></p>;
 };
