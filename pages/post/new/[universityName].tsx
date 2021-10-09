@@ -99,7 +99,7 @@ const NewUniversity = ({universityName}: {universityName: string}) => {
 
 export async function getServerSideProps(context: NextPageContext) {
   const { universityName } = context.query;
-  return { props: {universityName as string} };
+  return { props: {universityName } };
 }
 
 export default NewUniversity;
