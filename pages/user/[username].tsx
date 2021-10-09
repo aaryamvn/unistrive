@@ -1,11 +1,13 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Navbar } from "../../components/Navbar";
-import { ConsultantProfileEntity } from "../../entities/ConsultantProfileEntity";
-import { HighschoolerProfileEntity } from "../../entities/HighschoolerProfileEntity";
+import { PostEntity } from "../../entities/PostEntity";
+// import { ConsultantProfileEntity } from "../../entities/ConsultantProfileEntity";
+// import { HighschoolerProfileEntity } from "../../entities/HighschoolerProfileEntity";
 import { UserEntity } from "../../entities/UserEntity";
-import { findConsultantProfileById } from "../../firestore/consultantProfiles/findConsultantProfileById";
-import { findHighschoolerProfileById } from "../../firestore/highschoolerProfiles/findHighschoolerProfileById";
+import { findPostsByCreator } from "../../firestore/posts/findPostsByCreator";
+// import { findConsultantProfileById } from "../../firestore/consultantProfiles/findConsultantProfileById";
+// import { findHighschoolerProfileById } from "../../firestore/highschoolerProfiles/findHighschoolerProfileById";
 import { findUserByUsername } from "../../firestore/users/findUserByUsername";
 
 const UserPage = () => {
@@ -14,32 +16,21 @@ const UserPage = () => {
   const { username } = router.query;
   const [user, setUser] = useState<UserEntity>(null);
 
-  const [highschoolerProfile, setHighschoolerProfile] =
-    useState<HighschoolerProfileEntity>();
-  const [consultantProfile, setConsultantProfile] =
-    useState<ConsultantProfileEntity>();
+  //   const [highschoolerProfile, setHighschoolerProfile] =
+  //     useState<HighschoolerProfileEntity>();
+  //   const [consultantProfile, setConsultantProfile] =
+  //     useState<ConsultantProfileEntity>();
+
+  const [posts, setPosts] = useState<PostEntity[]>([]);
 
   useEffect(() => {
-    (async () => {
-      if (username) {
-        const userFound = await findUserByUsername(username as string);
-        setUser(userFound);
-      }
-
-      // if (user?.accountType === "consultant") {
-      //   setConsultantProfile(
-      //     await findConsultantProfileById(user?.consultantProfileId),
-      //   );
-      // }
-
-      // if (user?.accountType === "highschooler") {
-      //   setHighschoolerProfile(
-      //     await findHighschoolerProfileById(user?.highschoolerProfileId),
-      //   );
-      // }
-    })();
-  }, []);
-
+    const getPosts = async (name: string) => {
+      const user = await findUserByUsername(username as string);
+      console.log("FUCK YOU ABNO", user)
+      if (name) setPosts(await findPostsByCreator(user.id));
+    };
+    getPosts(username as string);
+  }, [username, router]);
   console.log("sdjbgjhsfd", user);
 
   return (
