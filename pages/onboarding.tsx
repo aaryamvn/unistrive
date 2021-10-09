@@ -1,17 +1,19 @@
 import { useAuthContext } from "../contexts/AuthContext";
+import { useRouter } from "next/router";
 import { TextBox } from "../components/TextBox";
 import { useEffect, useState } from "react";
 import { Button } from "../components/Button";
 import { AccountTypeOptions } from "../components/AccountTypeOptions";
-import { createConsultantProfile } from "../firestore/consultantProfiles/createConsultantProfile";
 import { createHighschoolerProfile } from "../firestore/highschoolerProfiles/createHighschoolerProfile";
+import { createConsultantProfile } from "../firestore/consultantProfiles/createConsultantProfile";
 import { editUser } from "../firestore/users/editUser";
 import { UserEntity } from "../entities/UserEntity";
-import { useRouter } from "next/router";
 
 export const Onboarding = () => {
   const router = useRouter();
   const { user } = useAuthContext();
+
+  console.log("user", user);
 
   // stage
   const [activeStage, setActiveStage] = useState<number>(1);
@@ -61,9 +63,9 @@ export const Onboarding = () => {
 
     if (accountType === "highschooler") {
       highschoolerProfileId = await createHighschoolerProfile({
-        userId: user?.id,
-        appliedToUniNames: appliedToUniNames,
-        schoolName: schoolName,
+        userId: user.id,
+        appliedToUniNames,
+        schoolName,
       }).then((doc) => {
         return doc.id;
       });
@@ -73,7 +75,7 @@ export const Onboarding = () => {
 
     if (accountType === "consultant") {
       consultantProfileId = await createConsultantProfile({
-        userId: user?.id,
+        userId: user.id,
         courseName,
         universityName: uniName,
       }).then((doc) => {
