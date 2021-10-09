@@ -27,13 +27,17 @@ const UniversityPage = ({ university }: { university: UniversityEntity }) => {
   if (isLoading) return <Loader />;
 
   return (
-    <div>
+    <div className="overflow-x-hidden">
       <Navbar />
-      <div className="relative w-screen overflow-y-auto">
+      <div className="relative w-screen">
         <BannerSection university={university} />
-        <div className="mx-auto flex justify-center gap-2 mt-[19rem]">
+        <div className="mx-auto flex justify-center gap-2 mt-4 overflow-y-auto">
           <MainSection />
-          <UniDetailsSection university={university} />
+          <div>
+            <UniDetailsSection university={university} />
+            <UniDetailsSection university={university} />
+            <UniDetailsSection university={university} />
+          </div>
         </div>
       </div>
     </div>
