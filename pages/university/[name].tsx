@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { Loader } from "../../components/Loader";
 import { Navbar } from "../../components/Navbar";
 import { BannerSection } from "../../components/university/BannerSection";
+import { MainSection } from "../../components/university/MainSection";
+import { UniDetailsSection } from "../../components/university/UniDetailsSection";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { PostEntity } from "../../entities/PostEntity";
 import { UniversityEntity } from "../../entities/UniversityEntity";
@@ -35,16 +37,6 @@ const UniversityPage = ({ university }: { university: UniversityEntity }) => {
         </div>
       </div>
     </div>
-  );
-};
-
-const MainSection = () => {
-  return <div className="w-[40rem] rounded-md bg-bgVariant1 p-5"></div>;
-};
-
-const UniDetailsSection = () => {
-  return (
-    <div className="w-[19.5rem] rounded-md bg-bgVariant1 p-5 flex flex-col items-center gap-4 text-center"></div>
   );
 };
 
