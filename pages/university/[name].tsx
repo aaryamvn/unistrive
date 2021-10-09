@@ -33,7 +33,7 @@ const UniversityPage = ({ university }: { university: UniversityEntity }) => {
         <BannerSection university={university} />
         <div className="mx-auto flex justify-center gap-2 mt-4">
           <MainSection />
-          <UniDetailsSection />
+          <UniDetailsSection university={university} />
         </div>
       </div>
     </div>
