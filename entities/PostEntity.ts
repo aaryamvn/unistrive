@@ -5,7 +5,7 @@ export interface PostEntity {
   universityName: string;
 
   title: string;
-  description: string;
+  content: string;
   upvoterIds: string[];
   commentIds?: string[];
 
