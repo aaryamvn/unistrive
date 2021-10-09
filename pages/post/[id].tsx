@@ -1,10 +1,12 @@
 import { NextPageContext } from "next";
+import { useState } from "react";
 import { Navbar } from "../../components/Navbar";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { CommentEntity } from "../../entities/CommentEntity";
 import { PostEntity } from "../../entities/PostEntity";
 import { UniversityEntity } from "../../entities/UniversityEntity";
 import { UserEntity } from "../../entities/UserEntity";
+import { createComment } from "../../firestore/comments/createComment";
 import { findCommentsByPost } from "../../firestore/comments/findCommentsByPost";
 import { findPostById } from "../../firestore/posts/findPostById";
 import { findUniversityById } from "../../firestore/universities/findUniversitybyId";
@@ -24,7 +26,9 @@ const PostPage = ({
   console.log(post);
   console.log(comments);
 
-  const { isLoading } = useAuthContext();
+  const [newComment, setNewComment] = useState<string>();
+
+  const { user, isLoading } = useAuthContext();
 
   if (isLoading) {
     return (
@@ -64,6 +68,7 @@ const PostPage = ({
                     <img
                       className="rounded-full border h-5 w-5"
                       src="https://1000logos.net/wp-content/uploads/2017/02/Harvard-symbol.jpg"
+                      alt=""
                     />
                     <span className="ml-2">{post.universityName}</span>
                   </a>
@@ -106,6 +111,32 @@ const PostPage = ({
               </div>
             </div>
           </div>
+          {user && (
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                createComment({
+                  content: newComment,
+                  creatorId: user.id,
+                  postId: id,
+                  createdOn: Date(),
+                });
+              }}
+            >
+              <textarea
+                placeholder="Enter A Description"
+                className="h-60 bg-bgVariant1 text-bgVariantInverted1 rounded-md outline-none border-none p-5"
+                value={newComment}
+                onChange={(e) => setNewComment(e.target.value)}
+              />
+              <button className="bg-accent1 w-16" type="submit">
+                <h3 className="mx-auto text-lg">Create Comment</h3>
+              </button>
+            </form>
+          )}
+          {comments.map((comment, i) => {
+            return <p key={i}>{comment.content}</p>;
+          })}
         </div>
       </div>
     </div>
