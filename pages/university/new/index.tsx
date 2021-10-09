@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Button } from "../../../components/Button";
 import { TextBox } from "../../../components/TextBox";
+import { useAuthContext } from "../contexts/AuthContext";
+import { createUniversity } from "../../../firestore/universities/createUniversity";
 
 const NewUniversity = () => {
   const [name, setName] = useState<string>("");
@@ -8,6 +10,39 @@ const NewUniversity = () => {
   const [logoUrl, setLogoUrl] = useState<string>("");
   const [linkedInProfile, setLinkedInProfile] = useState<string>("");
   const [bio, setBio] = useState<string>("");
+
+  const { user, login} = useAuthContext();
+
+  if (!user) {
+    return (
+      <div className="relative h-screen w-screen container mx-auto flex items-center justify-center">
+        <div className="md:w-[30rem] xl:w-[40rem] flex flex-col gap-[1rem]">
+          <h1
+            className="md:text-[2rem] xl:text-[2.5rem] font-extrabold"
+            style={{ fontFamily: "'Poppins', sans-serif" }}
+          >
+            Sign In to View this page
+          </h1>
+
+
+          <Button bg="bg-accent1" width="w-[13rem]" onClick={login}>
+            <img
+              src="/icons/google.svg"
+              className="h-5 w-5 object-contain"
+              alt=""
+            />
+            <h3>Login With Google</h3>
+          </Button>
+        </div>
+
+        <img
+          src="/call_hand_vector.png"
+          className="absolute bottom-0 right-5"
+          alt=""
+        />
+      </div>
+    );
+  }
   return (
     <>
       <div className="flex items-center w-full mt-20 overflow-hidden">
@@ -20,7 +55,21 @@ const NewUniversity = () => {
           </h1>
 
           <form
-            onSubmit={(e) => e.preventDefault()}
+            onSubmit={(e) => {
+              e.preventDefault();
+              createUniversity({
+                name,
+                bannerUrl,
+                logoUrl,
+                linkedInProfile,
+                bio,
+                creatorId: user.id,
+                email: user.email,
+                followerIds: [],
+                studentIds: [],
+                postIds: [],
+              });
+            }}
             className="w-full mt-6 flex flex-col gap-6"
           >
             <TextBox
@@ -58,9 +107,11 @@ const NewUniversity = () => {
                 onChange={(e) => setBio(e.target.value)}
               ></textarea>
             </div>
-            <Button bg="bg-accent1" width="w-full">
-              <h3 className="mx-auto text-lg">Next</h3>
-            </Button>
+            <input type="submit">
+              <Button bg="bg-accent1" width="w-full">
+                <h3 className="mx-auto text-lg">Create Univeristy</h3>
+              </Button>
+            </input>
           </form>
         </div>
       </div>
