@@ -1,5 +1,6 @@
 import { useAuthContext } from "../../contexts/AuthContext";
 import { UniversityEntity } from "../../entities/UniversityEntity";
+import { followUniversity } from "../../firestore/users/followUniversity";
 import { Button } from "../Button";
 
 export const FollowUniversityButton = ({
@@ -9,11 +10,16 @@ export const FollowUniversityButton = ({
 }) => {
   const { user } = useAuthContext();
 
+  if (!user) {
+    return <></>
+  }
+
   return (
     <Button
       bg="bg-[#fff]"
       height="h-[2.5rem]"
       className="!rounded-full text-bg hover:opacity-[0.7] transition-all"
+      onClick={() => followUniversity(user.id, university.name)}
     >
       {user?.followingUniNames?.includes(university.name) ? (
         <span className="flex items-center gap-2">

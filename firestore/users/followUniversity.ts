@@ -2,7 +2,7 @@ import { universitiesCollection, usersCollection } from "../collections";
 import { findUniversityByName } from "../universities/findUniversityByName";
 import { findUserById } from "./findUserById";
 
-export const findUserByUsername = async (
+export const followUniversity = async (
   userId: string,
   universityName: string,
 ) => {
