@@ -54,15 +54,15 @@ const BannerSection = ({ university }: { university: UniversityEntity }) => {
         className="w-screen h-[10rem] object-cover"
       />
 
-      <div className="bg-bgVariant1 relative py-5">
+      <div className="bg-bgVariant1 py-5">
         <div className="mx-auto w-[59.5rem] flex flex-col gap-3">
           <div className="flex gap-5">
             <img
               src={university.logoUrl}
               alt=""
-              className="mt-[-2.5rem] h-[6rem] w-[6rem] object-cover rounded-md"
+              className="h-[5rem] w-[5rem] object-cover rounded-md"
             />
-            <div>
+            <div className="flex items-center justify-between gap-2 w-full">
               <div className="flex flex-col">
                 <h1 className="text-[2.5rem] font-bold leading-tight">
                   {university.name}
@@ -71,35 +71,31 @@ const BannerSection = ({ university }: { university: UniversityEntity }) => {
                   {university.email}
                 </span>
               </div>
-
-              {/* Buttons */}
-              <div className="mt-4">
-                <Button
-                  bg="bg-[#fff]"
-                  height="h-[2.5rem]"
-                  className="!rounded-full text-bg"
-                >
-                  {user?.followingUniNames?.includes(university.name) ? (
-                    <span className="flex items-center gap-2">
-                      <img
-                        src="/icons/checkmark.svg"
-                        alt=""
-                        className="h-[1.3rem] w-[1.3rem]"
-                      />
-                      Following
-                    </span>
-                  ) : (
-                    <span className="flex items-center gap-2">
-                      <img
-                        src="/icons/follow_user.svg"
-                        alt=""
-                        className="h-[1.3rem] w-[1.3rem]"
-                      />
-                      Follow University
-                    </span>
-                  )}
-                </Button>
-              </div>
+              <Button
+                bg="bg-[#fff]"
+                height="h-[2.5rem]"
+                className="!rounded-full text-bg"
+              >
+                {user?.followingUniNames?.includes(university.name) ? (
+                  <span className="flex items-center gap-2">
+                    <img
+                      src="/icons/checkmark.svg"
+                      alt=""
+                      className="h-[1.3rem] w-[1.3rem]"
+                    />
+                    Following
+                  </span>
+                ) : (
+                  <span className="flex items-center gap-2">
+                    <img
+                      src="/icons/follow_user.svg"
+                      alt=""
+                      className="h-[1.3rem] w-[1.3rem]"
+                    />
+                    Follow University
+                  </span>
+                )}
+              </Button>
             </div>
           </div>
         </div>

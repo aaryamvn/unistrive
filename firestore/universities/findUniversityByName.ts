@@ -6,7 +6,7 @@ export const findUniversityByName = async (
 ): Promise<UniversityEntity> => {
   const doc = (
     await universitiesCollection.where("name", "==", uniName).get()
-  ).docs[0].data();
+  ).docs[0]?.data();
 
   console.log(doc);
 
