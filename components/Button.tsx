@@ -1,8 +1,9 @@
+// @ts-nocheck
 export const Button = ({
   height = "",
   width = "",
   bg,
-  type = "",
+  type = "button",
   onClick = () => {},
   children,
   className = "",
