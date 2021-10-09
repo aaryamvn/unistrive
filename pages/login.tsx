@@ -1,7 +1,16 @@
+import { useRouter } from "next/dist/client/router";
 import { useEffect } from "react";
 import { Button } from "../components/Button";
+import { useAuthContext } from "../contexts/AuthContext";
 
 export const Login = () => {
+  const router = useRouter();
+  const { user, login } = useAuthContext();
+
+  useEffect(() => {
+    if (user) router.push("/");
+  }, [user]);
+
   return (
     <div className="relative h-screen w-screen container mx-auto flex items-center justify-center">
       <div className="md:w-[30rem] xl:w-[40rem] flex flex-col gap-[1rem]">
@@ -18,7 +27,7 @@ export const Login = () => {
           universities of their dreams, and obtain valuable advice for no cost.
         </p>
 
-        <Button bg="bg-accent1" width="w-[13rem]" onClick={() => {}}>
+        <Button bg="bg-accent1" width="w-[13rem]" onClick={login}>
           <img src="/icons/google.svg" className="h-5 w-5 object-contain" />
           <h3>Login With Google</h3>
         </Button>
