@@ -62,7 +62,7 @@ export const Onboarding = () => {
     if (accountType === "highschooler") {
       highschoolerProfileId = await createHighschoolerProfile({
         userId: user?.id,
-        appliedToUniversityNames: appliedToUniNames,
+        appliedToUniNames: appliedToUniNames,
         schoolName: schoolName,
       }).then((doc) => {
         return doc.id;
@@ -133,10 +133,10 @@ export const Onboarding = () => {
                 setCurrentYear={setCurrentYear}
                 schoolName={schoolName}
                 setSchoolName={setSchoolName}
-                appliedToUniIds={appliedToUniNames}
-                setAppliedToUniIds={setAppliedToUniNames}
-                uniId={uniName}
-                setUniId={setUniName}
+                appliedToUniNames={appliedToUniNames}
+                setAppliedToUniNames={setAppliedToUniNames}
+                uniName={uniName}
+                setUniName={setUniName}
                 courseName={courseName}
                 setCourseName={setCourseName}
               />
@@ -231,10 +231,10 @@ const OnboardingStage3 = ({
   setCurrentYear,
   schoolName,
   setSchoolName,
-  appliedToUniIds,
-  setAppliedToUniIds,
-  uniId,
-  setUniId,
+  appliedToUniNames,
+  setAppliedToUniNames,
+  uniName,
+  setUniName,
   courseName,
   setCourseName,
 }) => {
@@ -269,8 +269,8 @@ const OnboardingStage3 = ({
           <TextBox
             title="Applied to Universities"
             placeholder="Harvard, MIT, Wharton"
-            value={appliedToUniIds}
-            setValue={setAppliedToUniIds}
+            value={appliedToUniNames}
+            setValue={setAppliedToUniNames}
           />
         </>
       )}
@@ -281,8 +281,8 @@ const OnboardingStage3 = ({
           <TextBox
             title="University"
             placeholder="Harvard School Of Business"
-            value={uniId}
-            setValue={setUniId}
+            value={uniName}
+            setValue={setUniName}
           />
 
           <TextBox
