@@ -33,7 +33,7 @@ export const UniDetailsSection = ({
         </span>
 
         <span className="flex flex-col font-semibold">
-          <h4 className="text-md">👀</h4>
+          <h4 className="text-md">🤓</h4>
           <h5 className="text-xs">Applicants</h5>
         </span>
       </div>

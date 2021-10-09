@@ -13,7 +13,7 @@ export const FollowUniversityButton = ({
     <Button
       bg="bg-[#fff]"
       height="h-[2.5rem]"
-      className="!rounded-full text-bg"
+      className="!rounded-full text-bg hover:opacity-[0.7] transition-all"
     >
       {user?.followingUniNames?.includes(university.name) ? (
         <span className="flex items-center gap-2">
