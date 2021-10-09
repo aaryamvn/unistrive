@@ -50,7 +50,7 @@ const UserPage = ({ username }) => {
               className="md:text-[2rem] xl:text-[2.5rem] font-extrabold"
               style={{ fontFamily: "'Poppins', sans-serif" }}
             >
-              <strong>OOPS!</strong> This account does not exist
+              <strong>OOPS!</strong> This account either does not exist or is still being loaded
             </h1>
           </div>
 
