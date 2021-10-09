@@ -4,14 +4,9 @@ import { Navbar } from "../../components/Navbar";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { CommentEntity } from "../../entities/CommentEntity";
 import { PostEntity } from "../../entities/PostEntity";
-import { UniversityEntity } from "../../entities/UniversityEntity";
-import { UserEntity } from "../../entities/UserEntity";
 import { createComment } from "../../firestore/comments/createComment";
 import { findCommentsByPost } from "../../firestore/comments/findCommentsByPost";
 import { findPostById } from "../../firestore/posts/findPostById";
-import { findUniversityById } from "../../firestore/universities/findUniversitybyId";
-import { findUniversityByName } from "../../firestore/universities/findUniversityByName";
-import { findUserById } from "../../firestore/users/findUserById";
 
 const PostPage = ({
   id,
@@ -81,9 +76,7 @@ const PostPage = ({
                 </div>
                 <div>
                   <h2 className="text-lg font-medium mb-1">{post.title}</h2>
-                  <p className="text-sm font-regular mb-1">
-                    {post.content}
-                  </p>
+                  <p className="text-sm font-regular mb-1">{post.content}</p>
                 </div>
                 <div className="inline-flex items-center my-1">
                   <div className="flex hover:bg-grey-lighter p-1">
@@ -111,7 +104,7 @@ const PostPage = ({
               </div>
             </div>
           </div>
-          {(user && user.accountType === "consultant") && (
+          {user && user.accountType === "consultant" && (
             <form
               onSubmit={(e) => {
                 e.preventDefault();
