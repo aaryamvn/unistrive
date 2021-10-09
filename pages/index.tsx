@@ -13,7 +13,7 @@ const Index = () => {
             className="md:text-[2rem] xl:text-[2.5rem] font-extrabold"
             style={{ fontFamily: "'Poppins', sans-serif" }}
           >
-            Welcome {user.displayName}
+            Welcome {user?.displayName}
           </h1>
 
           <Button bg="bg-accent1" width="w-[8rem]" onClick={logout}>
