@@ -6,9 +6,9 @@ export const findPostsByUniversity = async (
 ): Promise<PostEntity[]> => {
   const docs = (
     await postsCollection.where("universityName", "==", universityName).get()
-  ).docs;
+  );
   let posts = [];
-  docs.map((doc) => {
+  docs.docs.map((doc) => {
     posts.push(doc.data());
   });
   return posts as any;

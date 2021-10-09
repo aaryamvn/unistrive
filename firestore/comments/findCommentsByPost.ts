@@ -5,5 +5,9 @@ export const findCommentsByPost = async (
   postId: string,
 ): Promise<CommentEntity[]> => {
   const docs = await commentsCollection.where("postId", "==", postId).get();
-  return docs as any;
+  let comments = []
+  docs.docs.map((doc) => {
+    comments.push(doc.data());
+  });
+  return comments as any;
 };

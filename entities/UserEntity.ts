@@ -14,7 +14,7 @@ export interface UserEntity {
   followerUserIds?: string[]; // users this user is followed by
   followingUserIds?: string[]; // users this user follows
 
-  followingUniIds?: string[]; // universities this user follows
+  followingUniNames?: string[]; // universities this user follows
 
   postsUpvotedIds?: string[]; // posts from highschoolers that this user has upvoted
   commentUpvotedIds?: string[]; // comments from consultants that this user has upvoted
