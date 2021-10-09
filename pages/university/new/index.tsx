@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "../../../components/Button";
 import { TextBox } from "../../../components/TextBox";
-import { useAuthContext } from "../contexts/AuthContext";
+import { useAuthContext } from "../../../contexts/AuthContext";
 import { createUniversity } from "../../../firestore/universities/createUniversity";
 
 const NewUniversity = () => {
@@ -11,7 +11,7 @@ const NewUniversity = () => {
   const [linkedInProfile, setLinkedInProfile] = useState<string>("");
   const [bio, setBio] = useState<string>("");
 
-  const { user, login} = useAuthContext();
+  const { user, login } = useAuthContext();
 
   if (!user) {
     return (
@@ -23,7 +23,6 @@ const NewUniversity = () => {
           >
             Sign In to View this page
           </h1>
-
 
           <Button bg="bg-accent1" width="w-[13rem]" onClick={login}>
             <img
