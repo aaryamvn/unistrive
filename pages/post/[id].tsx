@@ -82,7 +82,7 @@ const PostPage = ({
                 <div>
                   <h2 className="text-lg font-medium mb-1">{post.title}</h2>
                   <p className="text-sm font-regular mb-1">
-                    {post.description}
+                    {post.content}
                   </p>
                 </div>
                 <div className="inline-flex items-center my-1">
