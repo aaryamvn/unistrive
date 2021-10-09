@@ -1,6 +1,6 @@
 // import { useRouter } from "next/router";
 import { NextPageContext } from "next";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Navbar } from "../../components/Navbar";
 import { PostEntity } from "../../entities/PostEntity";
 // import { ConsultantProfileEntity } from "../../entities/ConsultantProfileEntity";
@@ -13,7 +13,6 @@ import { findUserByUsername } from "../../firestore/users/findUserByUsername";
 
 const UserPage = ({ username }) => {
   // const router = useRouter();
-  let errors: string[];
 
   // const { username } = router.query;
   console.log("username: ", username);
@@ -26,43 +25,14 @@ const UserPage = ({ username }) => {
 
   const [posts, setPosts] = useState<PostEntity[]>([]);
 
-  useEffect(() => {
-    try {
-      const getUser = async (name: string) => {
-        const user = await findUserByUsername(username as string);
-        console.log("user from db: ", user);
-        setUser(user);
-      };
+  const getUser = async (name: string) => {
+    const user = await findUserByUsername(username as string);
+    console.log("user from db: ", user);
+    setUser(user);
+  };
 
-      getUser(username);
-    } catch (error) {
-      errors.push(error);
-    }
-  }, [username, errors]);
+  getUser(username);
 
-  if (!user || errors) {
-    return (
-      <div>
-        <Navbar />
-        <div className="relative h-[calc(100vh-4rem)] w-screen container mx-auto flex items-center justify-center">
-          <div className="md:w-[30rem] xl:w-[40rem] flex flex-col gap-[1rem]">
-            <h1
-              className="md:text-[2rem] xl:text-[2.5rem] font-extrabold"
-              style={{ fontFamily: "'Poppins', sans-serif" }}
-            >
-              <strong>OOPS!</strong> This account either does not exist or is still being loaded
-            </h1>
-          </div>
-
-          <img
-            src="/call_hand_vector.png"
-            className="absolute bottom-0 right-5"
-            alt=""
-          />
-        </div>
-      </div>
-    );
-  }
   return (
     <div>
       <Navbar />

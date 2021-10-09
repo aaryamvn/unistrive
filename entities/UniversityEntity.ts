@@ -2,6 +2,8 @@ export interface UniversityEntity {
   id?: string;
 
   name: string;
+  logoUrl: string;
+  bannerUrl?: string;
   email: string;
   linkedInProfile?: string;
   bio?: string;
