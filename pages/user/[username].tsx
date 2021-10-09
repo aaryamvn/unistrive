@@ -13,7 +13,8 @@ import { findUserByUsername } from "../../firestore/users/findUserByUsername";
 const UserPage = () => {
   const router = useRouter();
 
-  const { username } = router.query;
+  // const { username } = router.query;
+  const username = "fullstackslayer";
   console.log("username: ", username);
   const [user, setUser] = useState<UserEntity>(null);
 
@@ -24,21 +25,19 @@ const UserPage = () => {
 
   const [posts, setPosts] = useState<PostEntity[]>([]);
 
-  useEffect(() => {
-    const getPosts = async (name: string) => {
-      const user = await findUserByUsername(username as string);
-      console.log("user from db: ", user);
-      if (name) setPosts(await findPostsByCreator(user.id));
-    };
-    getPosts(username as string);
-  }, [username, router]);
-  console.log("sdjbgjhsfd", user);
+  const getUser = async (name: string) => {
+    const user = await findUserByUsername(username as string);
+    console.log("user from db: ", user);
+    setUser(user);
+  };
+
+  getUser(username);
 
   return (
     <div>
       <Navbar />
       <div className="relative w-screen container mx-auto flex justify-center gap-2 mt-5">
-        <div className="w-[40rem] rounded-md bg-bgVariant1 p-5">d</div>
+        <div className="w-[40rem] rounded-md bg-bgVariant1 p-5">{user ? user.bio:"Failed to fetch bio"}</div>
         <ProfileCard
           user={user}
           // highschoolerProfile={highschoolerProfile}
