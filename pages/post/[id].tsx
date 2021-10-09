@@ -8,6 +8,7 @@ import { UserEntity } from "../../entities/UserEntity";
 import { findCommentsByPost } from "../../firestore/comments/findCommentsByPost";
 import { findPostById } from "../../firestore/posts/findPostById";
 import { findUniversityById } from "../../firestore/universities/findUniversitybyId";
+import { findUniversityByName } from "../../firestore/universities/findUniversityByName";
 import { findUserById } from "../../firestore/users/findUserById";
 
 const PostPage = ({
@@ -120,8 +121,7 @@ export async function getServerSideProps(context: NextPageContext) {
   const { id } = context.query;
   const post = await findPostById(id as string);
   const comments = await findCommentsByPost(id as string);
-  // TODO: type defs missing
-  const university = await findUniversityById(post.universityId);
+  const university = await findUniversityByName(post.universityName);
   const creator = await findUserById(post.creatorId);
   return { props: { post, comments, university, creator } };
 }
