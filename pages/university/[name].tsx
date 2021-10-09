@@ -17,7 +17,8 @@ const UniversityPage = ({ university }: { university: UniversityEntity }) => {
 
   // make an array of all the posts from this university
   useEffect(() => {
-    (async () => university && setPosts(await findPostsByUniversity(university.name)))();
+    (async () =>
+      university && setPosts(await findPostsByUniversity(university.name)))();
   }, [university]);
 
   // loader
@@ -27,7 +28,7 @@ const UniversityPage = ({ university }: { university: UniversityEntity }) => {
     <div>
       <Navbar />
       <div className="relative w-screen mx-auto flex justify-center gap-2">
-        <BannerSection uni={university} />
+        <BannerSection university={university} />
         {/* <MainSection />
         <UniDetailsSection /> */}
       </div>
@@ -35,10 +36,10 @@ const UniversityPage = ({ university }: { university: UniversityEntity }) => {
   );
 };
 
-const BannerSection = ({ uni }: { uni: UniversityEntity }) => {
+const BannerSection = ({ university }: { university: UniversityEntity }) => {
   const { user } = useAuthContext();
 
-  if (!uni) {
+  if (!university) {
     return <>YO MAMA</>;
   }
 
@@ -46,7 +47,7 @@ const BannerSection = ({ uni }: { uni: UniversityEntity }) => {
     <div className="w-screen">
       <img
         src={
-          uni.bannerUrl ||
+          university.bannerUrl ||
           "https://media.istockphoto.com/photos/university-sign-in-fall-picture-id182240679?b=1&k=20&m=182240679&s=170667a&w=0&h=B5nYT957nFgQbNzHqjZZr0VUhwWX-Dh3fTq-jBzU7qI="
         }
         alt=""
@@ -57,17 +58,17 @@ const BannerSection = ({ uni }: { uni: UniversityEntity }) => {
         <div className="mx-auto w-[59.5rem] flex flex-col gap-3">
           <div className="flex gap-5">
             <img
-              src={uni.logoUrl}
+              src={university.logoUrl}
               alt=""
               className="mt-[-2.5rem] h-[6rem] w-[6rem] object-cover rounded-md"
             />
             <div>
               <div className="flex flex-col">
                 <h1 className="text-[2.5rem] font-bold leading-tight">
-                  {uni.name}
+                  {university.name}
                 </h1>
                 <span className="text-[1rem] font-regular text-muted1">
-                  {uni.email}
+                  {university.email}
                 </span>
               </div>
 
@@ -78,7 +79,7 @@ const BannerSection = ({ uni }: { uni: UniversityEntity }) => {
                   height="h-[2.5rem]"
                   className="!rounded-full text-bg"
                 >
-                  {user?.followingUniNames?.includes(uni.name) ? (
+                  {user?.followingUniNames?.includes(university.name) ? (
                     <span className="flex items-center gap-2">
                       <img
                         src="/icons/checkmark.svg"
