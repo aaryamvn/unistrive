@@ -11,11 +11,9 @@ const UserPage = () => {
   let user;
 
   useEffect(() => {
-    const main = async () => {
-      user = await findUserByUsername(username as string);
-    };
-
-    main();
+    (async () => {
+      if (username) user = await findUserByUsername(username as string);
+    })();
   }, [loggedInUser]);
 
   return <p></p>;
