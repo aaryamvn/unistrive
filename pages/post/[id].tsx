@@ -12,18 +12,19 @@ import { findUniversityByName } from "../../firestore/universities/findUniversit
 import { findUserById } from "../../firestore/users/findUserById";
 
 const PostPage = ({
+  id,
   post,
   comments,
-  university,
-  creator,
 }: {
+  id: string;
   post: PostEntity;
   comments: CommentEntity[];
-  university: UniversityEntity;
-  creator: UserEntity;
 }) => {
+  console.log(id);
   console.log(post);
-  const { isLoading } = useAuthContext();
+  console.log(comments);
+
+    const { isLoading } = useAuthContext();
 
   if (isLoading) {
     return (
@@ -120,10 +121,8 @@ const PostPage = ({
 export async function getServerSideProps(context: NextPageContext) {
   const { id } = context.query;
   const post = await findPostById(id as string);
-  const comments = await findCommentsByPost(id as string);
-  const university = await findUniversityByName(post.universityName);
-  const creator = await findUserById(post.creatorId);
-  return { props: { post, comments, university, creator } };
+  const comments = await findCommentsByPost(post.id);
+  return { props: { id, post, comments } };
 }
 
 export default PostPage;
