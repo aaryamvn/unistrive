@@ -1,12 +1,13 @@
 import { Button } from "../components/Button";
+import { Navbar } from "../components/Navbar";
 import { useAuthContext } from "../contexts/AuthContext";
-import { Layout } from "../hoc/Layout";
 
 const Index = () => {
   const { user, logout } = useAuthContext();
   return (
-    <Layout containerClassName="relative container mx-auto flex items-center justify-center">
-      <div className="relative h-[calc(100vh-5.4rem)] w-screen container mx-auto flex items-center justify-center">
+    <div>
+      <Navbar />
+      <div className="relative h-[calc(100vh-4rem)] w-screen container mx-auto flex items-center justify-center">
         <div className="md:w-[30rem] xl:w-[40rem] flex flex-col gap-[1rem]">
           <h1
             className="md:text-[2rem] xl:text-[2.5rem] font-extrabold"
@@ -26,7 +27,7 @@ const Index = () => {
           alt=""
         />
       </div>
-    </Layout>
+    </div>
   );
 };
 
