@@ -1,7 +1,7 @@
-import { useRouter } from "next/dist/client/router";
-import { useEffect } from "react";
-import { Button } from "../components/Button";
 import { useAuthContext } from "../contexts/AuthContext";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
+import { Button } from "../components/Button";
 
 export const Login = () => {
   const router = useRouter();
