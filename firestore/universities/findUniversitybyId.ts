@@ -3,7 +3,7 @@ import { universitiesCollection } from "../collections";
 
 export const findUniversityById = async (
   id: string,
-): Promise<UniversityEntity[]> => {
+): Promise<UniversityEntity> => {
   const doc = (await universitiesCollection.doc(id).get()).data();
   return doc as any;
 };
