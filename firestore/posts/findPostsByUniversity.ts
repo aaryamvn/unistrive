@@ -7,8 +7,10 @@ export const findPostsByUniversity = async (
   const docs = await postsCollection
     .where("universityName", "==", universityName)
     .get();
+
   let posts = [];
   docs.docs.map((doc) => {
+    // by doing this we get a string of json objects
     posts.push(doc.data());
   });
   return posts as any;
