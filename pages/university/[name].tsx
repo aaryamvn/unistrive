@@ -9,7 +9,7 @@ import { UniversityEntity } from "../../entities/UniversityEntity";
 import { findPostsByUniversity } from "../../firestore/posts/findPostsByUniversity";
 import { findUniversityByName } from "../../firestore/universities/findUniversityByName";
 
-const UniversityPage = ({ uni }: { uni: UniversityEntity }) => {
+const UniversityPage = ({ university }: { university: UniversityEntity }) => {
   const { isLoading } = useAuthContext();
 
   // posts
@@ -17,8 +17,8 @@ const UniversityPage = ({ uni }: { uni: UniversityEntity }) => {
 
   // make an array of all the posts from this university
   useEffect(() => {
-    (async () => uni && setPosts(await findPostsByUniversity(uni.name)))();
-  }, [uni]);
+    (async () => university && setPosts(await findPostsByUniversity(university.name)))();
+  }, [university]);
 
   // loader
   if (isLoading) return <Loader />;
@@ -27,7 +27,7 @@ const UniversityPage = ({ uni }: { uni: UniversityEntity }) => {
     <div>
       <Navbar />
       <div className="relative w-screen mx-auto flex justify-center gap-2">
-        <BannerSection uni={uni} />
+        <BannerSection uni={university} />
         {/* <MainSection />
         <UniDetailsSection /> */}
       </div>
@@ -37,6 +37,10 @@ const UniversityPage = ({ uni }: { uni: UniversityEntity }) => {
 
 const BannerSection = ({ uni }: { uni: UniversityEntity }) => {
   const { user } = useAuthContext();
+
+  if (!uni) {
+    return <>YO MAMA</>;
+  }
 
   return (
     <div className="w-screen">
