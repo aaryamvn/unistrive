@@ -6,7 +6,7 @@ import { useAuthContext } from "../../../contexts/AuthContext";
 import { createPost } from "../../../firestore/posts/createPost";
 import { createUniversity } from "../../../firestore/universities/createUniversity";
 
-const NewUniversity = ({universityName}: {universityName: string}) => {
+const NewUniversity = ({ universityName }: { universityName: string }) => {
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
 
@@ -85,11 +85,9 @@ const NewUniversity = ({universityName}: {universityName: string}) => {
                 onChange={(e) => setContent(e.target.value)}
               ></textarea>
             </div>
-            <input type="submit">
-              <Button bg="bg-accent1" width="w-full">
+              <Button bg="bg-accent1" width="w-full" type="submit">
                 <h3 className="mx-auto text-lg">Create Post</h3>
               </Button>
-            </input>
           </form>
         </div>
       </div>
@@ -99,7 +97,7 @@ const NewUniversity = ({universityName}: {universityName: string}) => {
 
 export async function getServerSideProps(context: NextPageContext) {
   const { universityName } = context.query;
-  return { props: {universityName } };
+  return { props: { universityName } };
 }
 
 export default NewUniversity;
