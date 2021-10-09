@@ -2,6 +2,7 @@ import { useAuthContext } from "../contexts/AuthContext";
 import { TextBox } from "../components/TextBox";
 import { useEffect, useState } from "react";
 import { Button } from "../components/Button";
+import { AccountTypeOptions } from "../components/AccountTypeOptions";
 
 export const Onboarding = () => {
   const { user } = useAuthContext();
@@ -16,6 +17,9 @@ export const Onboarding = () => {
   const [username, setUsername] = useState<string>("");
   const [linkedInProfile, setLinkedInProfile] = useState<string>("");
   const [bio, setBio] = useState<string>("");
+  const [accountType, setAccountType] = useState<"highschooler" | "consultant">(
+    null,
+  );
 
   // fill in form data with defaults beforehand
   useEffect(() => {
@@ -48,6 +52,14 @@ export const Onboarding = () => {
               setLinkedInProfile={setLinkedInProfile}
               bio={bio}
               setBio={setBio}
+            />
+          )}
+
+          {activeStage === 2 && (
+            <OnboardingStage2
+              setActiveStage={setActiveStage}
+              accountType={accountType}
+              setAccountType={setAccountType}
             />
           )}
         </form>
@@ -93,6 +105,29 @@ const OnboardingStage1 = ({
         value={bio}
         setValue={setBio}
       />
+      <Button
+        bg="bg-accent1"
+        width="w-full"
+        onClick={() => setActiveStage((c) => c + 1)}
+      >
+        <h3 className="mx-auto text-lg">Next</h3>
+      </Button>
+    </>
+  );
+};
+
+const OnboardingStage2 = ({ setActiveStage, accountType, setAccountType }) => {
+  return (
+    <>
+      <div className="flex flex-col gap-1">
+        <h3 className="uppercase font-semibold text-muted1 text-sm">
+          What Are You On Unistrive For?
+        </h3>
+        <AccountTypeOptions
+          accountType={accountType}
+          setAccountType={setAccountType}
+        />
+      </div>
       <Button
         bg="bg-accent1"
         width="w-full"
