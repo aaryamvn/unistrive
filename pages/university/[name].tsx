@@ -27,10 +27,12 @@ const UniversityPage = ({ university }: { university: UniversityEntity }) => {
   return (
     <div>
       <Navbar />
-      <div className="relative w-screen mx-auto flex justify-center gap-2">
+      <div className="relative w-screen">
         <BannerSection university={university} />
-        {/* <MainSection />
-        <UniDetailsSection /> */}
+        <div className="mx-auto flex justify-center gap-2 mt-4">
+          <MainSection />
+          <UniDetailsSection />
+        </div>
       </div>
     </div>
   );
@@ -56,7 +58,7 @@ const BannerSection = ({ university }: { university: UniversityEntity }) => {
 
       <div className="bg-bgVariant1 py-5">
         <div className="mx-auto w-[59.5rem] flex flex-col gap-3">
-          <div className="flex gap-5">
+          <div className="flex gap-7">
             <img
               src={university.logoUrl}
               alt=""
