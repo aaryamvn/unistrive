@@ -4,8 +4,11 @@ import { highschoolerProfilesCollection } from "../collections";
 export const createHighschoolerProfile = async (
   data: HighschoolerProfileEntity,
 ) => {
-  const doc = await highschoolerProfilesCollection.add(data);
-  highschoolerProfilesCollection.doc(doc.id).set({ id: doc.id });
+  const doc = await (await highschoolerProfilesCollection.add(data)).get();
+  console.log(doc);
 
-  return doc;
+  return {
+    id: doc.id,
+    ...doc.data(),
+  };
 };

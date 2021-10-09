@@ -44,8 +44,8 @@ export const Onboarding = () => {
 
   // submit handler
   async function handleSubmit() {
-    let highschoolerProfileId;
-    let consultantProfileId;
+    let highschoolerProfile;
+    let consultantProfile;
 
     const updatedUser: UserEntity = {
       displayName,
@@ -58,26 +58,24 @@ export const Onboarding = () => {
     };
 
     if (accountType === "highschooler") {
-      highschoolerProfileId = await createHighschoolerProfile({
+      highschoolerProfile = await createHighschoolerProfile({
         userId: user.id,
         schoolName,
-      }).then((doc) => {
-        return doc.id;
       });
 
-      updatedUser.highschoolerProfileId = highschoolerProfileId;
+      console.log(highschoolerProfile);
+      updatedUser.highschoolerProfileId = highschoolerProfile.id;
     }
 
     if (accountType === "consultant") {
-      consultantProfileId = await createConsultantProfile({
+      consultantProfile = await createConsultantProfile({
         userId: user.id,
         courseName,
         universityName: uniName,
-      }).then((doc) => {
-        return doc.id;
       });
 
-      updatedUser.consultantProfileId = consultantProfileId;
+      console.log(consultantProfile);
+      updatedUser.consultantProfileId = consultantProfile.id;
     }
 
     editUser(updatedUser, user?.id);
@@ -261,7 +259,6 @@ const OnboardingStage3 = ({
       )}
 
       {accountType === "consultant" && (
-        // TASK: Make it a searchable textbox
         <>
           <TextBox
             title="University"
