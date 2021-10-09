@@ -6,7 +6,9 @@ export const findUserByUsername = async (
 ): Promise<UserEntity> => {
   const doc = (
     await usersCollection.where("username", "==", username).get()
-  ).docs[0]?.data();
+  )// [0] is for finding the first and logically only instance of the user documentation with the same username
+  .docs[0]
+    ?.data();
 
   console.log(doc);
 
