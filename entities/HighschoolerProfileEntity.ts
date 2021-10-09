@@ -4,5 +4,4 @@ export interface HighschoolerProfileEntity {
 
   schoolName: string; // the name of the high school they study at
   createdPostIds?: string[]; // the posts they have created in a university
-  appliedToUniNames: string[]; // the univisities they have applied to
 }

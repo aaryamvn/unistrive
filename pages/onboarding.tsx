@@ -31,10 +31,6 @@ export const Onboarding = () => {
 
   // form data - highschooler account
   const [schoolName, setSchoolName] = useState<string>(""); // Name of the school a highschooler is studying at
-  const [appliedToUniNames, setAppliedToUniNames] = useState<string[]>([
-    "test1",
-    "test2",
-  ]); // All the universities on the platform that this highschooler has applied to
 
   // form data - consultant account
   const [uniName, setUniName] = useState<string>(""); // The ID of the university a consultant is studying at
@@ -64,7 +60,6 @@ export const Onboarding = () => {
     if (accountType === "highschooler") {
       highschoolerProfileId = await createHighschoolerProfile({
         userId: user.id,
-        appliedToUniNames,
         schoolName,
       }).then((doc) => {
         return doc.id;
@@ -135,8 +130,6 @@ export const Onboarding = () => {
                 setCurrentYear={setCurrentYear}
                 schoolName={schoolName}
                 setSchoolName={setSchoolName}
-                appliedToUniNames={appliedToUniNames}
-                setAppliedToUniNames={setAppliedToUniNames}
                 uniName={uniName}
                 setUniName={setUniName}
                 courseName={courseName}
@@ -233,8 +226,6 @@ const OnboardingStage3 = ({
   setCurrentYear,
   schoolName,
   setSchoolName,
-  appliedToUniNames,
-  setAppliedToUniNames,
   uniName,
   setUniName,
   courseName,
@@ -265,14 +256,6 @@ const OnboardingStage3 = ({
             placeholder="St. Phillips High School"
             value={schoolName}
             setValue={setSchoolName}
-          />
-
-          {/* TASK: Make it a multi-select searchable textbox */}
-          <TextBox
-            title="Applied to Universities"
-            placeholder="Harvard, MIT, Wharton"
-            value={appliedToUniNames}
-            setValue={setAppliedToUniNames}
           />
         </>
       )}
