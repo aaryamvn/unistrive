@@ -4,6 +4,6 @@ import { universitiesCollection } from "../collections";
 export const findUniversityById = async (
   id: string,
 ): Promise<UniversityEntity> => {
-  const doc = (await universitiesCollection.doc(id).get())[0].data();
+  const doc = (await universitiesCollection.doc(id).get()).data();
   return doc as any;
 };
