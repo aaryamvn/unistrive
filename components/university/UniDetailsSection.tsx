@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import { UniversityEntity } from "../../entities/UniversityEntity";
 import { CreatePostButton } from "./CreatePostButton";
@@ -40,7 +41,11 @@ export const UniDetailsSection = ({
 
       {/* CREATE POST BUTTON */}
       <div className="flex items-center justify-between">
-        <CreatePostButton />
+        <Link href={`/post/new/${university.name}`} passHref>
+          <a>
+            <CreatePostButton />
+          </a>
+        </Link>
       </div>
     </div>
   );
