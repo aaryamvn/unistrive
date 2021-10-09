@@ -25,15 +25,22 @@ export const UniDetailsSection = ({
           <h4 className="text-md">{university?.followerIds.length || 0}</h4>
           <h5 className="text-xs">Followers</h5>
         </span>
+
         <span className="flex flex-col font-semibold">
           <h4 className="text-md">{university?.studentIds.length || 0}</h4>
           <h5 className="text-xs">Students</h5>
         </span>
+
         <span className="flex flex-col font-semibold">
           <h4 className="text-md">👀</h4>
           <h5 className="text-xs">Applicants</h5>
         </span>
       </div>
+
+      {/* CREATE POST BUTTON
+      <div className="flex items-center justify-between pb-4 border-b border-bgVariant2">
+
+      </div> */}
     </div>
   );
 };
