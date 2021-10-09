@@ -1,14 +1,14 @@
 import { useAuthContext } from "../contexts/AuthContext";
 import { useRouter } from "next/router";
-import { TextBox } from "../components/TextBox";
 import { useEffect, useState } from "react";
 import { Button } from "../components/Button";
-import { AccountTypeOptions } from "../components/AccountTypeOptions";
 import { createHighschoolerProfile } from "../firestore/highschoolerProfiles/createHighschoolerProfile";
 import { createConsultantProfile } from "../firestore/consultantProfiles/createConsultantProfile";
 import { editUser } from "../firestore/users/editUser";
 import { UserEntity } from "../entities/UserEntity";
 import { OnboardingStage1 } from "../components/onboarding/OnboardingStage1";
+import { OnboardingStage2 } from "../components/onboarding/OnboardingStage2";
+import { OnboardingStage3 } from "../components/onboarding/OnboardingStage3";
 
 export const Onboarding = () => {
   const router = useRouter();
@@ -143,92 +143,6 @@ export const Onboarding = () => {
         </form>
       </div>
     </div>
-  );
-};
-
-const OnboardingStage2 = ({ setActiveStage, accountType, setAccountType }) => {
-  return (
-    <>
-      <div className="flex flex-col gap-1">
-        <h3 className="uppercase font-semibold text-muted1 text-sm">
-          What Are You On Unistrive For?
-        </h3>
-        <AccountTypeOptions
-          accountType={accountType}
-          setAccountType={setAccountType}
-        />
-      </div>
-      <Button
-        bg="bg-accent1"
-        width="w-full"
-        onClick={() => setActiveStage((c) => c + 1)}
-      >
-        <h3 className="mx-auto text-lg">Next</h3>
-      </Button>
-    </>
-  );
-};
-
-const OnboardingStage3 = ({
-  accountType,
-  yearOfGraduation,
-  setYearOfGraduation,
-  currentYear,
-  setCurrentYear,
-  schoolName,
-  setSchoolName,
-  uniName,
-  setUniName,
-  courseName,
-  setCourseName,
-}) => {
-  return (
-    <>
-      <TextBox
-        title="Year Of Graduation"
-        placeholder="2022"
-        type="number"
-        value={yearOfGraduation}
-        setValue={setYearOfGraduation}
-      />
-
-      <TextBox
-        title="Current Year"
-        placeholder="1 (Freshman)"
-        type="number"
-        value={currentYear}
-        setValue={setCurrentYear}
-      />
-
-      {accountType === "highschooler" && (
-        <>
-          <TextBox
-            title="School"
-            placeholder="St. Phillips High School"
-            value={schoolName}
-            setValue={setSchoolName}
-          />
-        </>
-      )}
-
-      {accountType === "consultant" && (
-        <>
-          <TextBox
-            title="University"
-            placeholder="Harvard School Of Business"
-            value={uniName}
-            setValue={setUniName}
-          />
-
-          <TextBox
-            title="Course"
-            placeholder="Computer Science"
-            value={courseName}
-            setValue={setCourseName}
-          />
-        </>
-      )}
-    </>
   );
 };
 
