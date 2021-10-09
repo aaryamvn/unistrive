@@ -14,10 +14,9 @@ export const Navbar = () => {
 const ProfileSection = () => {
   const { user } = useAuthContext();
 
-  return user ? (      
-
+  return user ? (
     <div className="flex items-center gap-2">
-    <img
+      <img
         src={user.avatarUrl}
         alt=""
         className="h-7 w-7 rounded-full object-contain"
@@ -27,7 +26,8 @@ const ProfileSection = () => {
         alt=""
         className="h-[0.6rem] w-[0.6rem]"
       />
-  </div>): (
-  <></>
-)
-}
+    </div>
+  ) : (
+    <></>
+  );
+};

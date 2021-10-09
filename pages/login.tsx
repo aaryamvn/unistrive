@@ -28,7 +28,11 @@ export const Login = () => {
         </p>
 
         <Button bg="bg-accent1" width="w-[13rem]" onClick={login}>
-          <img src="/icons/google.svg" className="h-5 w-5 object-contain" alt=""/>
+          <img
+            src="/icons/google.svg"
+            className="h-5 w-5 object-contain"
+            alt=""
+          />
           <h3>Login With Google</h3>
         </Button>
       </div>

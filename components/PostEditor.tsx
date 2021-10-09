@@ -4,12 +4,12 @@ import { EditorState } from "@codemirror/state";
 import { basicSetup } from "@codemirror/basic-setup";
 import { markdown } from "@codemirror/lang-markdown";
 import { oneDark } from "@codemirror/theme-one-dark";
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 const Codemirror = ({ source, setSource }) => {
   const editor = useRef<EditorView>();
-	
+
   const onUpdate = () =>
     EditorView.updateListener.of((v: ViewUpdate) => {
       const doc = v.state.doc;
@@ -31,10 +31,9 @@ const Codemirror = ({ source, setSource }) => {
 
   const Rendered = () => (
     <div className="border rounded p-5">
-        <ReactMarkdown children={source} remarkPlugins={[remarkGfm]} />
+      <ReactMarkdown children={source} remarkPlugins={[remarkGfm]} />
     </div>
   );
-
 
   return (
     <div className="grid gap-8">

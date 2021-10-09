@@ -11,9 +11,9 @@ const Index = () => {
   useEffect(() => {
     if (!user) router.push("/login");
   }, [user, router]);
-  
+
   if (!user) {
-    return <p>Login</p>
+    return <p>Login</p>;
   }
 
   return (
