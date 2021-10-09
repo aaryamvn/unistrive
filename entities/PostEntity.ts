@@ -6,7 +6,7 @@ export interface PostEntity {
 
   title: string;
   description: string;
-  likerIds: string[];
+  upvoterIds: string[];
   commentIds?: string[];
 
   createdOn: Date;

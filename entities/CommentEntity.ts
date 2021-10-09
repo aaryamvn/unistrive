@@ -5,7 +5,7 @@ export interface CommentEntity {
   postId: number;
 
   content: string;
-  likerIds?: string[];
+  upvoterIds?: string[];
 
   createdOn: Date;
   updatedOn: Date;
