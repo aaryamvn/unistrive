@@ -6,9 +6,12 @@ export const followUniversity = async (
   userId: string,
   universityName: string,
 ) => {
+  // The userDoc lets us update the data
+  // The findUserById function just reduces repeated code
   const userDoc = usersCollection.doc(userId);
   const user = await findUserById(userId);
 
+  // Same implementation
   const university = await findUniversityByName(universityName);
   const universityDoc = universitiesCollection.doc(university.id);
 
