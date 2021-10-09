@@ -17,7 +17,14 @@ const UserPage = () => {
     })();
   }, [loggedInUser]);
 
-  return <Layout>sjdngjhdsf</Layout>;
+  return (
+    <Layout>
+      <div className="container mx-auto flex gap-2">
+        <div className="w-[40rem] h-full bg-bgVariant1">d</div>
+        <div className="w-[19.5rem] h-full bg-bgVariant1">d</div>
+      </div>
+    </Layout>
+  );
 };
 
 export default UserPage;
