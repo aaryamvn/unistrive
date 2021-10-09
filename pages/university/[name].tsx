@@ -1,25 +1,21 @@
-import { useRouter } from "next/router";
+import { NextPageContext } from "next";
 import { useEffect, useState } from "react";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { PostEntity } from "../../entities/PostEntity";
 import { findPostsByUniversity } from "../../firestore/posts/findPostsByUniversity";
-import { findUniversityByName } from "../../firestore/universities/findUniversityByName";
 
-const UniversityPage = () => {
-  const router = useRouter();
+const UniversityPage = ({ name }) => {
   const { user, isLoading } = useAuthContext();
   const [posts, setPosts] = useState<PostEntity[]>([]);
 
-  const { name } = router.query;
   console.log(name);
 
   useEffect(() => {
-    getPosts("MIT");
+    getPosts(name);
   }, [name]);
 
   const getPosts = async (name: string) => {
-    if (name)
-      setPosts(await findPostsByUniversity(name));
+    if (name) setPosts(await findPostsByUniversity(name));
   };
 
   if (isLoading) {
@@ -33,17 +29,18 @@ const UniversityPage = () => {
     );
   }
 
-  if (!user) {
-    return <p></p>;
-  } else {
-    return (
-      <p>
-        <div>
-          <pre>{JSON.stringify(posts, null, 2)}</pre>
-        </div>
-      </p>
-    );
-  }
+  return (
+    <p>
+      <div>
+        <pre>{JSON.stringify(posts, null, 2)}</pre>
+      </div>
+    </p>
+  );
 };
 
 export default UniversityPage;
+
+export async function getServerSideProps(context: NextPageContext) {
+  const { name } = context.query;
+  return { props: { name } };
+}

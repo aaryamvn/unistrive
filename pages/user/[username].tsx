@@ -1,20 +1,20 @@
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+// import { useRouter } from "next/router";
+import { NextPageContext } from "next";
+import { useState } from "react";
 import { Navbar } from "../../components/Navbar";
 import { PostEntity } from "../../entities/PostEntity";
 // import { ConsultantProfileEntity } from "../../entities/ConsultantProfileEntity";
 // import { HighschoolerProfileEntity } from "../../entities/HighschoolerProfileEntity";
 import { UserEntity } from "../../entities/UserEntity";
-import { findPostsByCreator } from "../../firestore/posts/findPostsByCreator";
+// import { findPostsByCreator } from "../../firestore/posts/findPostsByCreator";
 // import { findConsultantProfileById } from "../../firestore/consultantProfiles/findConsultantProfileById";
 // import { findHighschoolerProfileById } from "../../firestore/highschoolerProfiles/findHighschoolerProfileById";
 import { findUserByUsername } from "../../firestore/users/findUserByUsername";
 
-const UserPage = () => {
-  const router = useRouter();
+const UserPage = ({username}) => {
+  // const router = useRouter();
 
   // const { username } = router.query;
-  const username = "fullstackslayer";
   console.log("username: ", username);
   const [user, setUser] = useState<UserEntity>(null);
 
@@ -37,7 +37,9 @@ const UserPage = () => {
     <div>
       <Navbar />
       <div className="relative w-screen container mx-auto flex justify-center gap-2 mt-5">
-        <div className="w-[40rem] rounded-md bg-bgVariant1 p-5">{user ? user.bio:"Failed to fetch bio"}</div>
+        <div className="w-[40rem] rounded-md bg-bgVariant1 p-5">
+          {user ? user.bio : "Failed to fetch bio"}
+        </div>
         <ProfileCard
           user={user}
           // highschoolerProfile={highschoolerProfile}
@@ -87,3 +89,8 @@ const ProfileCard = ({ user }: { user: UserEntity }) => {
 };
 
 export default UserPage;
+
+export async function getServerSideProps(context: NextPageContext) {
+  const { username } = context.query;
+  return { props: { username } };
+}
