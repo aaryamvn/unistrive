@@ -42,7 +42,7 @@ export const UniDetailsSection = ({
       {/* CREATE POST BUTTON */}
       <div className="flex items-center justify-between">
         <Link href={`/post/new/${university.name}`} passHref>
-          <a>
+          <a className="w-full">
             <CreatePostButton />
           </a>
         </Link>
