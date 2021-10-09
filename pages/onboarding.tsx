@@ -1,19 +1,17 @@
 import { useAuthContext } from "../contexts/AuthContext";
-import { useRouter } from "next/router";
 import { TextBox } from "../components/TextBox";
 import { useEffect, useState } from "react";
 import { Button } from "../components/Button";
 import { AccountTypeOptions } from "../components/AccountTypeOptions";
-import { createHighschoolerProfile } from "../firestore/highschoolerProfiles/createHighschoolerProfile";
 import { createConsultantProfile } from "../firestore/consultantProfiles/createConsultantProfile";
+import { createHighschoolerProfile } from "../firestore/highschoolerProfiles/createHighschoolerProfile";
 import { editUser } from "../firestore/users/editUser";
 import { UserEntity } from "../entities/UserEntity";
+import { useRouter } from "next/router";
 
 export const Onboarding = () => {
   const router = useRouter();
   const { user } = useAuthContext();
-
-  console.log(user);
 
   // stage
   const [activeStage, setActiveStage] = useState<number>(1);
