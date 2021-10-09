@@ -141,7 +141,7 @@ export const Onboarding = () => {
                 setCourseName={setCourseName}
               />
 
-              <Button bg="bg-accent1" width="w-full" onClick={() => {}}>
+              <Button bg="bg-accent1" width="w-full" onClick={handleSubmit}>
                 <h3 className="mx-auto text-lg">Submit</h3>
               </Button>
             </>
