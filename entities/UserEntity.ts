@@ -16,8 +16,8 @@ export interface UserEntity {
 
   followingUniIds?: string[]; // universities this user follows
 
-  postLikedIds?: string[]; // posts from highschoolers that this user has liked
-  commentLikedIds?: string[]; // comments from consultants that this user has liked
+  postsUpvotedIds?: string[]; // posts from highschoolers that this user has upvoted
+  commentUpvotedIds?: string[]; // comments from consultants that this user has upvoted
   commentMarkedAsCorrectIds?: string[]; // comments from consultants that this user has marked as correct
 
   accountType: "highschooler" | "consultant";
