@@ -9,6 +9,6 @@ export interface PostEntity {
   upvoterIds: string[];
   commentIds?: string[];
 
-  createdOn: Date;
-  updatedOn: Date;
+  createdOn: string;
+  updatedOn: string;
 }

@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { UniversityEntity } from "../../entities/UniversityEntity";
-import { findUniversityById } from "../../firestore/universities/findUniversitybyId";
+import { findUniversityByName } from "../../firestore/universities/findUniversityByName";
 
 const UniversityPage = () => {
   const router = useRouter();
@@ -10,12 +10,16 @@ const UniversityPage = () => {
   const [university, setUniversity] = useState<UniversityEntity>();
 
   const { name } = router.query;
+  console.log(name);
 
   useEffect(() => {
-    findUniversityById(name as string).then((u) => setUniversity(u));
+    findUniversityByName("MIT").then((u) => setUniversity(u));
   }, [name]);
 
-  return <p></p>;
+  if (!user) {
+    return <p></p>;
+  }
+  return <p><div><pre>{JSON.stringify(university, null, 2) }</pre></div></p>;
 };
 
 export default UniversityPage;
