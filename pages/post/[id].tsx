@@ -111,7 +111,7 @@ const PostPage = ({
               </div>
             </div>
           </div>
-          {user && (
+          {(user && user.accountType === "consultant") && (
             <form
               onSubmit={(e) => {
                 e.preventDefault();
