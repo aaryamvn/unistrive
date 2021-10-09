@@ -27,7 +27,7 @@ const UserPage = () => {
   useEffect(() => {
     const getPosts = async (name: string) => {
       const user = await findUserByUsername(username as string);
-      console.log("FUCK YOU ABNO", user);
+      console.log("user from db: ", user);
       if (name) setPosts(await findPostsByCreator(user.id));
     };
     getPosts(username as string);
