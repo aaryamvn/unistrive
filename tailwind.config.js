@@ -14,6 +14,9 @@ module.exports = {
 
       bgVariant1: "#282C38",
       bgVariantInverted1: "#fff",
+
+      bgVariant2: "#3C4252",
+      bgVariantInverted2: "#fff",
     },
   },
   variants: {

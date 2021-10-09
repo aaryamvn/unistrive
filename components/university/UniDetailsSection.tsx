@@ -20,6 +20,20 @@ export const UniDetailsSection = ({
       </div>
 
       {/* MEMBERS */}
+      <div className="flex items-center gap-10 pb-4 border-b border-bgVariant2">
+        <span className="flex flex-col font-semibold">
+          <h4 className="text-md">{university?.followerIds.length || 0}</h4>
+          <h5 className="text-xs">Followers</h5>
+        </span>
+        <span className="flex flex-col font-semibold">
+          <h4 className="text-md">{university?.studentIds.length || 0}</h4>
+          <h5 className="text-xs">Students</h5>
+        </span>
+        <span className="flex flex-col font-semibold">
+          <h4 className="text-md">👀</h4>
+          <h5 className="text-xs">Applicants</h5>
+        </span>
+      </div>
     </div>
   );
 };
