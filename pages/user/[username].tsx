@@ -14,6 +14,7 @@ const UserPage = () => {
   const router = useRouter();
 
   const { username } = router.query;
+  console.log("username: ", username);
   const [user, setUser] = useState<UserEntity>(null);
 
   //   const [highschoolerProfile, setHighschoolerProfile] =
@@ -26,7 +27,7 @@ const UserPage = () => {
   useEffect(() => {
     const getPosts = async (name: string) => {
       const user = await findUserByUsername(username as string);
-      console.log("FUCK YOU ABNO", user)
+      console.log("FUCK YOU ABNO", user);
       if (name) setPosts(await findPostsByCreator(user.id));
     };
     getPosts(username as string);
