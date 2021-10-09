@@ -4,10 +4,11 @@ export const Button = ({
   bg,
   onClick = () => {},
   children,
+  className = "",
 }) => {
   return (
     <button
-      className={`${height} ${width} ${bg} font-semibold text-md rounded-[0.5rem] flex items-center justify-between px-[1rem] py-[0.8rem]`}
+      className={`font-semibold text-md rounded-[0.5rem] flex items-center select-none justify-between px-[1rem] py-[0.8rem] ${className} ${height} ${width} ${bg}`}
       onClick={onClick}
     >
       {children}

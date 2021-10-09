@@ -1,5 +1,7 @@
 import { NextPageContext } from "next";
 import { useEffect, useState } from "react";
+import { Button } from "../../components/Button";
+import { Loader } from "../../components/Loader";
 import { Navbar } from "../../components/Navbar";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { PostEntity } from "../../entities/PostEntity";
@@ -8,9 +10,9 @@ import { findPostsByUniversity } from "../../firestore/posts/findPostsByUniversi
 import { findUniversityByName } from "../../firestore/universities/findUniversityByName";
 
 const UniversityPage = ({ uni }: { uni: UniversityEntity }) => {
-  console.log(uni);
   const { isLoading } = useAuthContext();
 
+  // posts
   const [posts, setPosts] = useState<PostEntity[]>([]);
 
   // make an array of all the posts from this university
@@ -18,23 +20,14 @@ const UniversityPage = ({ uni }: { uni: UniversityEntity }) => {
     (async () => uni && setPosts(await findPostsByUniversity(uni.name)))();
   }, [uni]);
 
-  // loading state
-  if (isLoading) {
-    return (
-      <h1
-        className="md:text-[2rem] xl:text-[2.5rem] font-extrabold"
-        style={{ fontFamily: "'Poppins', sans-serif" }}
-      >
-        Loading...
-      </h1>
-    );
-  }
+  // loader
+  if (isLoading) return <Loader />;
 
   return (
     <div>
       <Navbar />
-      <div className="relative w-screen container mx-auto flex justify-center gap-2 mt-5">
-        {/* <BannerSection /> */}
+      <div className="relative w-screen mx-auto flex justify-center gap-2">
+        <BannerSection uni={uni} />
         {/* <MainSection />
         <UniDetailsSection /> */}
       </div>
@@ -42,10 +35,70 @@ const UniversityPage = ({ uni }: { uni: UniversityEntity }) => {
   );
 };
 
-const BannerSection = () => {
+const BannerSection = ({ uni }: { uni: UniversityEntity }) => {
+  const { user } = useAuthContext();
+
   return (
-    <div className="w-screen bg-bgVariant1 p-5">
-      <img src="" alt="" className="w-full object-contain" />
+    <div className="w-screen">
+      <img
+        src={
+          uni.bannerUrl ||
+          "https://media.istockphoto.com/photos/university-sign-in-fall-picture-id182240679?b=1&k=20&m=182240679&s=170667a&w=0&h=B5nYT957nFgQbNzHqjZZr0VUhwWX-Dh3fTq-jBzU7qI="
+        }
+        alt=""
+        className="w-screen h-[10rem] object-cover"
+      />
+
+      <div className="bg-bgVariant1 relative py-5">
+        <div className="mx-auto w-[59.5rem] flex flex-col gap-3">
+          <div className="flex gap-5">
+            <img
+              src={uni.logoUrl}
+              alt=""
+              className="mt-[-2.5rem] h-[6rem] w-[6rem] object-cover rounded-md"
+            />
+            <div>
+              <div className="flex flex-col">
+                <h1 className="text-[2.5rem] font-bold leading-tight">
+                  {uni.name}
+                </h1>
+                <span className="text-[1rem] font-regular text-muted1">
+                  {uni.email}
+                </span>
+              </div>
+
+              {/* Buttons */}
+              <div className="mt-4">
+                <Button
+                  bg="bg-[#fff]"
+                  height="h-[2.5rem]"
+                  className="!rounded-full text-bg"
+                >
+                  {user?.followingUniNames?.includes(uni.name) ? (
+                    <span className="flex items-center gap-2">
+                      <img
+                        src="/icons/checkmark.svg"
+                        alt=""
+                        className="h-[1.3rem] w-[1.3rem]"
+                      />
+                      Following
+                    </span>
+                  ) : (
+                    <span className="flex items-center gap-2">
+                      <img
+                        src="/icons/follow_user.svg"
+                        alt=""
+                        className="h-[1.3rem] w-[1.3rem]"
+                      />
+                      Follow University
+                    </span>
+                  )}
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
