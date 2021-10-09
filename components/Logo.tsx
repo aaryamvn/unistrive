@@ -1,5 +1,5 @@
 import React from "react";
-import Link from "next/Link"
+import Link from "next/link"
 
 export const Logo = ({ size = "text-[1.5rem]" }) => {
   return (
