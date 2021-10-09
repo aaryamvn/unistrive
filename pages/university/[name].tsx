@@ -9,12 +9,6 @@ import { UniversityEntity } from "../../entities/UniversityEntity";
 import { findPostsByUniversity } from "../../firestore/posts/findPostsByUniversity";
 import { findUniversityByName } from "../../firestore/universities/findUniversityByName";
 
-export async function getServerSideProps(context: NextPageContext) {
-  const { name } = context.query;
-  const uni = await findUniversityByName(name as string);
-  return { props: { uni } };
-}
-
 const UniversityPage = ({ uni }: { uni: UniversityEntity }) => {
   const { isLoading } = useAuthContext();
 
@@ -40,8 +34,6 @@ const UniversityPage = ({ uni }: { uni: UniversityEntity }) => {
     </div>
   );
 };
-
-export default UniversityPage;
 
 const BannerSection = ({ uni }: { uni: UniversityEntity }) => {
   const { user } = useAuthContext();
@@ -120,3 +112,11 @@ const UniDetailsSection = () => {
     <div className="w-[19.5rem] rounded-md bg-bgVariant1 p-5 flex flex-col items-center gap-4 text-center"></div>
   );
 };
+
+export async function getServerSideProps(context: NextPageContext) {
+  const { name } = context.query;
+  const university = await findUniversityByName(name as string);
+  return { props: { university } };
+}
+
+export default UniversityPage;
