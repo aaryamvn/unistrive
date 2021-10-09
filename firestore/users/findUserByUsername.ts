@@ -5,8 +5,8 @@ export const findUserByUsername = async (
   username: string,
 ): Promise<UserEntity> => {
   const doc = (
-    await usersCollection.where("username", "==", "fullstackslayer").get()
-  ).docs[0];
+    await usersCollection.where("username", "==", username).get()
+  ).docs[0].data();
 
   console.log(doc);
 

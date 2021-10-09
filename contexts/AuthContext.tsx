@@ -58,6 +58,7 @@ export const AuthContextProvider = ({ children }) => {
     setError("");
 
     console.log("Login Successful");
+    return router.push("/");
   }
 
   async function logout() {
@@ -66,6 +67,7 @@ export const AuthContextProvider = ({ children }) => {
       setUser(null);
 
       console.log("Logout Successful");
+      return router.push("/login");
     } catch (e) {
       console.error(e);
       setError(e.message);
