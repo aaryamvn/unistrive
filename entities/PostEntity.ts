@@ -2,7 +2,7 @@ export interface PostEntity {
   id?: string;
 
   creatorId: string;
-  universityId: string;
+  universityName: string;
 
   title: string;
   description: string;

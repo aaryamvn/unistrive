@@ -29,13 +29,13 @@ export const Onboarding = () => {
 
   // form data - highschooler account
   const [schoolName, setSchoolName] = useState<string>(""); // Name of the school a highschooler is studying at
-  const [appliedToUniIds, setAppliedToUniIds] = useState<string[]>([
+  const [appliedToUniNames, setAppliedToUniNames] = useState<string[]>([
     "test1",
     "test2",
   ]); // All the universities on the platform that this highschooler has applied to
 
   // form data - consultant account
-  const [uniId, setUniId] = useState<string>(""); // The ID of the university a consultant is studying at
+  const [uniName, setUniName] = useState<string>(""); // The ID of the university a consultant is studying at
   const [courseName, setCourseName] = useState<string>(""); // The name of the course a consultant is majoring in at their university
 
   // fill in form data with defaults beforehand
@@ -62,7 +62,7 @@ export const Onboarding = () => {
     if (accountType === "highschooler") {
       highschoolerProfileId = await createHighschoolerProfile({
         userId: user?.id,
-        appliedToUniversityIds: appliedToUniIds,
+        appliedToUniversityNames: appliedToUniNames,
         schoolName: schoolName,
       }).then((doc) => {
         return doc.id;
@@ -75,7 +75,7 @@ export const Onboarding = () => {
       consultantProfileId = await createConsultantProfile({
         userId: user?.id,
         courseName,
-        universityId: uniId,
+        universityName: uniName,
       }).then((doc) => {
         return doc.id;
       });
@@ -133,10 +133,10 @@ export const Onboarding = () => {
                 setCurrentYear={setCurrentYear}
                 schoolName={schoolName}
                 setSchoolName={setSchoolName}
-                appliedToUniIds={appliedToUniIds}
-                setAppliedToUniIds={setAppliedToUniIds}
-                uniId={uniId}
-                setUniId={setUniId}
+                appliedToUniIds={appliedToUniNames}
+                setAppliedToUniIds={setAppliedToUniNames}
+                uniId={uniName}
+                setUniId={setUniName}
                 courseName={courseName}
                 setCourseName={setCourseName}
               />

@@ -2,10 +2,10 @@ import { PostEntity } from "../../entities/PostEntity";
 import { postsCollection } from "../collections";
 
 export const findPostsByUniversity = async (
-  universityId: string,
+  universityName: string,
 ): Promise<PostEntity[]> => {
   const docs = await postsCollection
-    .where("universityId", "==", universityId)
+    .where("universityName", "==", universityName)
     .get();
   return docs as any;
 };
