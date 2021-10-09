@@ -1,9 +1,9 @@
+import { useRouter } from "next/router";
 import { createContext, useContext, useEffect, useState } from "react";
 import { auth } from "../services/firebase";
 import { createUser } from "../firestore/users/createUser";
 import { UserEntity } from "../entities/UserEntity";
 import { findUserById } from "../firestore/users/findUserById";
-import { useRouter } from "next/router";
 
 export const AuthContext = createContext(null);
 
@@ -42,12 +42,13 @@ export const AuthContextProvider = ({ children }) => {
           avatarUrl: res.user.photoURL,
           accountType: "highschooler",
         });
+
+        setIsLoading(false);
+        setError("");
+
+        console.log("Login Successful");
+        return router.push("/onboarding");
       }
-
-      setIsLoading(false);
-      setError("");
-
-      console.log("Login Successful");
     } catch (e) {
       console.error(e);
       setError(e.message);
@@ -57,7 +58,6 @@ export const AuthContextProvider = ({ children }) => {
     setError("");
 
     console.log("Login Successful");
-    return router.push("/");
   }
 
   async function logout() {
@@ -66,7 +66,6 @@ export const AuthContextProvider = ({ children }) => {
       setUser(null);
 
       console.log("Logout Successful");
-      return router.push("/login");
     } catch (e) {
       console.error(e);
       setError(e.message);
