@@ -8,6 +8,8 @@ import { createHighschoolerProfile } from "../firestore/highschoolerProfiles/cre
 import { createConsultantProfile } from "../firestore/consultantProfiles/createConsultantProfile";
 import { editUser } from "../firestore/users/editUser";
 import { UserEntity } from "../entities/UserEntity";
+import { DropdownInput } from "../components/DropdownInput";
+import { getUniversityNamesInMass } from "../firestore/universities/getUniversityNamesInMass";
 
 export const Onboarding = () => {
   const router = useRouter();
@@ -231,6 +233,14 @@ const OnboardingStage3 = ({
   courseName,
   setCourseName,
 }) => {
+  const [uniNames, setUniNames] = useState<string[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      setUniNames(await getUniversityNamesInMass());
+    })();
+  }, []);
+
   return (
     <>
       <TextBox
@@ -261,11 +271,10 @@ const OnboardingStage3 = ({
       )}
 
       {accountType === "consultant" && (
-        // TASK: Make it a searchable textbox
         <>
-          <TextBox
+          <DropdownInput
             title="University"
-            placeholder="Harvard School Of Business"
+            options={uniNames}
             value={uniName}
             setValue={setUniName}
           />
