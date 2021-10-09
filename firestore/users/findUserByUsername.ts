@@ -6,7 +6,7 @@ export const findUserByUsername = async (
 ): Promise<UserEntity> => {
   const doc = (
     await usersCollection.where("username", "==", username).get()
-  ).docs[0].data();
+  ).docs[0]?.data();
 
   console.log(doc);
 
