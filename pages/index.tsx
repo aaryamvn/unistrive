@@ -1,10 +1,10 @@
+import { useRouter } from "next/router";
 import { Button } from "../components/Button";
 import { useAuthContext } from "../contexts/AuthContext";
 import { Layout } from "../hoc/Layout";
 
 const Index = () => {
   const { user, logout } = useAuthContext();
-
   return (
     <Layout>
       {user && (

@@ -1,15 +1,22 @@
 {
+  "private": true,
   "scripts": {
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "fmt": "prettier -w ."
+    "fmt": "prettier --write . ",
+    "lint": "yarn prettier-fix && eslint . --ext js,jsx,ts,tsx --fix --config .eslintrc.json"
   },
   "dependencies": {
     "firebase": "8.10.0",
     "next": "latest",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx}": [
+      "eslint --fix"
+    ]
   },
   "devDependencies": {
     "@types/react": "^17.0.27",
