@@ -1,0 +1,31 @@
+{
+  "name": "unistrive",
+  "version": "1.0.0",
+  "description": "Helping high-schoolers get into the universities of their dreams. ",
+  "main": "index.js",
+  "repository": "https://github.com/fullstackslayer/unistrive",
+  "author": "Stark Llamas",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start",
+    "fmt": "prettier --write . ",
+    "lint": "yarn prettier-fix && eslint . --ext js,jsx,ts,tsx --fix --config .eslintrc.json"
+  },
+  "dependencies": {
+    "firebase": "8.10.0",
+    "next": "latest",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.27",
+    "autoprefixer": "^10.2.6",
+    "postcss": "^8.3.5",
+    "prettier": "2.3.2",
+    "tailwindcss": "^2.2.4",
+    "typescript": "^4.4.3"
+  },
+  "license": "MIT",
+  "private": true
+}
