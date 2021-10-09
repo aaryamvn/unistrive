@@ -9,7 +9,7 @@ export const Login = () => {
 
   useEffect(() => {
     if (user) router.push("/");
-  }, [user]);
+  }, [user, router]);
 
   return (
     <div className="relative h-screen w-screen container mx-auto flex items-center justify-center">
@@ -28,7 +28,7 @@ export const Login = () => {
         </p>
 
         <Button bg="bg-accent1" width="w-[13rem]" onClick={login}>
-          <img src="/icons/google.svg" className="h-5 w-5 object-contain" />
+          <img src="/icons/google.svg" className="h-5 w-5 object-contain" alt=""/>
           <h3>Login With Google</h3>
         </Button>
       </div>

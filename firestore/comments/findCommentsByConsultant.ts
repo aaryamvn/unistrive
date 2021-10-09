@@ -7,5 +7,9 @@ export const findCommentsByCreator = async (
   const docs = await commentsCollection
     .where("creatorId", "==", creatorId)
     .get();
-  return docs as any;
+  let comments = [];
+  docs.docs.map((doc) => {
+    comments.push(doc.data());
+  });
+  return comments as any;
 };

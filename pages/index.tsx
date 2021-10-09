@@ -1,9 +1,21 @@
 import { Button } from "../components/Button";
 import { Navbar } from "../components/Navbar";
+import { useRouter } from "next/router";
 import { useAuthContext } from "../contexts/AuthContext";
+import { useEffect } from "react";
 
 const Index = () => {
+  const router = useRouter();
   const { user, logout } = useAuthContext();
+
+  useEffect(() => {
+    if (!user) router.push("/login");
+  }, [user, router]);
+  
+  if (!user) {
+    return <p>Login</p>
+  }
+
   return (
     <div>
       <Navbar />

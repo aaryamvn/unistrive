@@ -3,14 +3,14 @@ import { findPostsByUniversity } from "./findPostsByUniversity";
 import { findUserById } from "../users/findUserById";
 import { PostEntity } from "../../entities/PostEntity";
 
-export const findPosts = async (userId: string) => {
+export const findPosts = async (userId: string): Promise<PostEntity[]> => {
   const user = await findUserById(userId);
   const posts: PostEntity[] = [];
-  user.followingUniIds.map(async (uniId: string) => {
-    const uniPosts = await findPostsByUniversity(uniId);
+  user.followingUniNames.map(async (uniName: string) => {
+    const uniPosts = await findPostsByUniversity(uniName);
     uniPosts.map((post: PostEntity) => {
       posts.push(post);
     });
   });
-  return posts;
+  return posts as any;
 };
