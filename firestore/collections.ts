@@ -1,5 +1,7 @@
 import { firestore } from "../services/firebase";
 
+// consultantProfilesCollection and highschoolerProfilesCollection base data off the usersCollection collection
+
 export const commentsCollection = firestore().collection("comments");
 
 export const postsCollection = firestore().collection("posts");
