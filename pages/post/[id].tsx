@@ -24,7 +24,7 @@ const PostPage = ({
   console.log(post);
   console.log(comments);
 
-    const { isLoading } = useAuthContext();
+  const { isLoading } = useAuthContext();
 
   if (isLoading) {
     return (
@@ -55,35 +55,29 @@ const PostPage = ({
                   </svg>
                 </button>
                 <span className="text-xs font-semibold my-1">
-                    {post.upvoterIds.length}
+                  {post.upvoterIds.length}
                 </span>
               </div>
               <div className="w-11/12 pt-2">
                 <div className="flex items-center text-xs mb-2">
-                  <a
-                    className="font-semibold no-underline hover:underline text-black flex items-center"
-                  >
+                  <a className="font-semibold no-underline hover:underline text-black flex items-center">
                     <img
                       className="rounded-full border h-5 w-5"
                       src="https://1000logos.net/wp-content/uploads/2017/02/Harvard-symbol.jpg"
                     />
-                    <span className="ml-2">{ post.universityName }</span>
+                    <span className="ml-2">{post.universityName}</span>
                   </a>
                   <span className="text-grey-light mx-1 text-xxs">•</span>
                   <span className="text-grey">Posted by</span>
-                  <a
-                    className="text-grey mx-1 no-underline hover:underline"
-                  >
+                  <a className="text-grey mx-1 no-underline hover:underline">
                     Divy Srivastava
                   </a>
-                  <span className="text-grey">{ post.createdOn }</span>
+                  <span className="text-grey">{post.createdOn}</span>
                 </div>
                 <div>
-                  <h2 className="text-lg font-medium mb-1">
-                    {post.title}
-                  </h2>
+                  <h2 className="text-lg font-medium mb-1">{post.title}</h2>
                   <p className="text-sm font-regular mb-1">
-                      {post.description}
+                    {post.description}
                   </p>
                 </div>
                 <div className="inline-flex items-center my-1">
@@ -96,7 +90,7 @@ const PostPage = ({
                       <path d="M10 15l-4 4v-4H2a2 2 0 0 1-2-2V3c0-1.1.9-2 2-2h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-8zM5 7v2h2V7H5zm4 0v2h2V7H9zm4 0v2h2V7h-2z" />
                     </svg>
                     <span className="ml-2 text-xs font-semibold text-grey">
-                      {comments.length} Comment{comments.length == 1 ? '' : 's'}
+                      {comments.length} Comment{comments.length == 1 ? "" : "s"}
                     </span>
                   </div>
                   <div className="flex hover:bg-grey-lighter p-1 ml-2 rotate-90">
