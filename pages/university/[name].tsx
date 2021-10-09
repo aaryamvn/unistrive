@@ -1,20 +1,26 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useAuthContext } from "../../contexts/AuthContext";
-import { UniversityEntity } from "../../entities/UniversityEntity";
+import { PostEntity } from "../../entities/PostEntity";
+import { findPostsByUniversity } from "../../firestore/posts/findPostsByUniversity";
 import { findUniversityByName } from "../../firestore/universities/findUniversityByName";
 
 const UniversityPage = () => {
   const router = useRouter();
   const { user, isLoading } = useAuthContext();
-  const [university, setUniversity] = useState<UniversityEntity>();
+  const [posts, setPosts] = useState<PostEntity[]>([]);
 
   const { name } = router.query;
   console.log(name);
 
   useEffect(() => {
-    findUniversityByName("MIT").then((u) => setUniversity(u));
+    getPosts("MIT");
   }, [name]);
+
+  const getPosts = async (name: string) => {
+    if (name)
+      setPosts(await findPostsByUniversity(name));
+  };
 
   if (isLoading) {
     return (
@@ -33,7 +39,7 @@ const UniversityPage = () => {
     return (
       <p>
         <div>
-          <pre>{JSON.stringify(university, null, 2)}</pre>
+          <pre>{JSON.stringify(posts, null, 2)}</pre>
         </div>
       </p>
     );
