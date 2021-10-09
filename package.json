@@ -2,7 +2,8 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "fmt": "prettier -w ."
   },
   "dependencies": {
     "firebase": "8.10.0",
