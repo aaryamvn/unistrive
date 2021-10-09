@@ -29,9 +29,9 @@ const UniversityPage = ({ university }: { university: UniversityEntity }) => {
   return (
     <div>
       <Navbar />
-      <div className="relative w-screen">
+      <div className="relative w-screen overflow-y-auto">
         <BannerSection university={university} />
-        <div className="mx-auto flex justify-center gap-2 mt-4">
+        <div className="mx-auto flex justify-center gap-2 mt-[19rem]">
           <MainSection />
           <UniDetailsSection university={university} />
         </div>

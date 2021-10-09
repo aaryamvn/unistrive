@@ -15,7 +15,7 @@ export const BannerSection = ({
   }
 
   return (
-    <div className="w-screen">
+    <div className="w-screen fixed">
       <img
         src={
           university.bannerUrl ||
