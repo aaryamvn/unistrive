@@ -3,11 +3,15 @@ import { TextBox } from "../components/TextBox";
 import { useEffect, useState } from "react";
 import { Button } from "../components/Button";
 import { AccountTypeOptions } from "../components/AccountTypeOptions";
+import { createConsultantProfile } from "../firestore/consultantProfiles/createConsultantProfile";
+import { createHighschoolerProfile } from "../firestore/highschoolerProfiles/createHighschoolerProfile";
+import { editUser } from "../firestore/users/editUser";
+import { UserEntity } from "../entities/UserEntity";
+import { useRouter } from "next/router";
 
 export const Onboarding = () => {
+  const router = useRouter();
   const { user } = useAuthContext();
-
-  console.log(user);
 
   // stage
   const [activeStage, setActiveStage] = useState<number>(1);
@@ -20,12 +24,68 @@ export const Onboarding = () => {
   const [accountType, setAccountType] = useState<"highschooler" | "consultant">(
     null,
   );
+  const [yearOfGraduation, setYearOfGraduation] = useState<number>();
+  const [currentYear, setCurrentYear] = useState<number>();
+
+  // form data - highschooler account
+  const [schoolName, setSchoolName] = useState<string>(""); // Name of the school a highschooler is studying at
+  const [appliedToUniIds, setAppliedToUniIds] = useState<string[]>([
+    "test1",
+    "test2",
+  ]); // All the universities on the platform that this highschooler has applied to
+
+  // form data - consultant account
+  const [uniId, setUniId] = useState<string>(""); // The ID of the university a consultant is studying at
+  const [courseName, setCourseName] = useState<string>(""); // The name of the course a consultant is majoring in at their university
 
   // fill in form data with defaults beforehand
   useEffect(() => {
     setDisplayName(user?.displayName);
     setUsername(user?.username);
   }, [user]);
+
+  // submit handler
+  async function handleSubmit() {
+    let highschoolerProfileId;
+    let consultantProfileId;
+
+    const updatedUser: UserEntity = {
+      displayName,
+      username,
+      bio,
+      currentYear,
+      yearOfGraduation,
+      accountType,
+      linkedInProfile,
+    };
+
+    if (accountType === "highschooler") {
+      highschoolerProfileId = await createHighschoolerProfile({
+        userId: user?.id,
+        appliedToUniversityIds: appliedToUniIds,
+        schoolName: schoolName,
+      }).then((doc) => {
+        return doc.id;
+      });
+
+      updatedUser.highschoolerProfileId = highschoolerProfileId;
+    }
+
+    if (accountType === "consultant") {
+      consultantProfileId = await createConsultantProfile({
+        userId: user?.id,
+        courseName,
+        universityId: uniId,
+      }).then((doc) => {
+        return doc.id;
+      });
+
+      updatedUser.consultantProfileId = consultantProfileId;
+    }
+
+    editUser(updatedUser, user?.id);
+    router.push("/");
+  }
 
   return (
     <div className="flex items-center h-screen w-screen overflow-hidden">
@@ -61,6 +121,30 @@ export const Onboarding = () => {
               accountType={accountType}
               setAccountType={setAccountType}
             />
+          )}
+
+          {activeStage === 3 && (
+            <>
+              <OnboardingStage3
+                accountType={accountType}
+                yearOfGraduation={yearOfGraduation}
+                setYearOfGraduation={setYearOfGraduation}
+                currentYear={currentYear}
+                setCurrentYear={setCurrentYear}
+                schoolName={schoolName}
+                setSchoolName={setSchoolName}
+                appliedToUniIds={appliedToUniIds}
+                setAppliedToUniIds={setAppliedToUniIds}
+                uniId={uniId}
+                setUniId={setUniId}
+                courseName={courseName}
+                setCourseName={setCourseName}
+              />
+
+              <Button bg="bg-accent1" width="w-full" onClick={() => {}}>
+                <h3 className="mx-auto text-lg">Submit</h3>
+              </Button>
+            </>
           )}
         </form>
       </div>
@@ -135,6 +219,80 @@ const OnboardingStage2 = ({ setActiveStage, accountType, setAccountType }) => {
       >
         <h3 className="mx-auto text-lg">Next</h3>
       </Button>
+    </>
+  );
+};
+
+const OnboardingStage3 = ({
+  accountType,
+  yearOfGraduation,
+  setYearOfGraduation,
+  currentYear,
+  setCurrentYear,
+  schoolName,
+  setSchoolName,
+  appliedToUniIds,
+  setAppliedToUniIds,
+  uniId,
+  setUniId,
+  courseName,
+  setCourseName,
+}) => {
+  return (
+    <>
+      <TextBox
+        title="Year Of Graduation"
+        placeholder="2022"
+        type="number"
+        value={yearOfGraduation}
+        setValue={setYearOfGraduation}
+      />
+
+      <TextBox
+        title="Current Year"
+        placeholder="1 (Freshman)"
+        type="number"
+        value={currentYear}
+        setValue={setCurrentYear}
+      />
+
+      {accountType === "highschooler" && (
+        <>
+          <TextBox
+            title="School"
+            placeholder="St. Phillips High School"
+            value={schoolName}
+            setValue={setSchoolName}
+          />
+
+          {/* TASK: Make it a multi-select searchable textbox */}
+          <TextBox
+            title="Applied to Universities"
+            placeholder="Harvard, MIT, Wharton"
+            value={appliedToUniIds}
+            setValue={setAppliedToUniIds}
+          />
+        </>
+      )}
+
+      {accountType === "consultant" && (
+        // TASK: Make it a searchable textbox
+        <>
+          <TextBox
+            title="University"
+            placeholder="Harvard School Of Business"
+            value={uniId}
+            setValue={setUniId}
+          />
+
+          <TextBox
+            title="Course"
+            placeholder="Computer Science"
+            value={courseName}
+            setValue={setCourseName}
+          />
+        </>
+      )}
     </>
   );
 };
