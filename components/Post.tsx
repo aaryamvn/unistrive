@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuthContext } from "../contexts/AuthContext";
 import { UserEntity } from "../entities/UserEntity";
 import Link from "next/link";
@@ -30,15 +30,18 @@ export const Post: React.FC<PostProps> = ({
 }) => {
   const { user } = useAuthContext();
 
-  let creator: UserEntity;
-  let university: UniversityEntity;
+  const [creator, setCreator] = useState<UserEntity>(null);
+  const [university, setUniversity] = useState<UniversityEntity>(null);
 
   useEffect(() => {
     (async () => {
-      creator = await findUserById(creatorId);
-      university = await findUniversityByName(universityName);
+      setCreator(await findUserById(creatorId));
+      setUniversity(await findUniversityByName(universityName));
     })();
   }, []);
+
+  console.log("creator", creator);
+  console.log("university", university);
 
   return (
     <div className="w-full rounded-md p-4 bg-bgVariant1 flex items-center gap-4">

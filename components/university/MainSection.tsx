@@ -4,7 +4,7 @@ import { Post } from "../Post";
 
 export const MainSection = ({ posts }: { posts: PostEntity[] }) => {
   return (
-    <div className="w-[40rem]">
+    <div className="w-[40rem] flex flex-col gap-2">
       {posts.map((post) => {
         return (
           <Post
