@@ -61,7 +61,9 @@ const University = ({
         />
 
         <div className="flex flex-col">
-          <h3 className="font-bold text-lg truncate">{name}</h3>
+          <a href={`/university/${name}`}>
+            <h3 className="font-bold text-lg truncate">{name}</h3>
+          </a>
           <div className="flex items-center gap-2 text-xs">
             <span className="flex items-center gap-1">
               {followerCount} <h5 className="font-semibold">Followers</h5>
