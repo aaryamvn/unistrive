@@ -48,7 +48,7 @@ const PostPage = ({
       <Navbar />
       <div className="flex w-960 mx-auto ml-8">
         <div className="w-2/3">
-          <div className="py-2">
+          <div className="py-4">
             <Post
               commentsAmt={post.commentIds.length}
               content={post.content}
@@ -100,12 +100,12 @@ const PostPage = ({
                 <div className="flex py-2">
                   <div className="flex-shrink-0 mr-3">
                     <img
-                      className="mt-2 rounded-full w-8 h-8 sm:w-10 sm:h-10"
+                      className="mt-4 rounded-full w-8 h-8 sm:w-10 sm:h-10"
                       src={commentUser?.avatarUrl}
                       alt=""
                     />
                   </div>
-                  <div className="flex-1 border rounded-lg px-4 py-2 sm:px-6 sm:py-4 leading-relaxed">
+                  <div className="flex-1 rounded-lg px-4 py-2 sm:px-6 sm:py-4 leading-relaxed">
                     <strong>{commentUser?.displayName}</strong>{" "}
                     <span className="text-xs text-gray-400">
                       {moment(comment.createdOn).fromNow()}
