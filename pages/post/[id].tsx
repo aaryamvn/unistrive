@@ -27,7 +27,6 @@ const PostPage = ({
   console.log(post);
   console.log(comments);
 
-
   const [newComment, setNewComment] = useState<string>();
   const [commentUser, setCommentUser] = useState<UserEntity>();
 
