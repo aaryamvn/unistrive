@@ -1,4 +1,7 @@
 import React from "react";
+import { useAuthContext } from "../../contexts/AuthContext";
+import { followUniversity } from "../../firestore/users/followUniversity";
+import { Button } from "../Button";
 
 export const SidePanel = () => {
   return (
@@ -42,7 +45,7 @@ const University = ({
 
         <div className="flex flex-col">
           <h3 className="font-bold text-lg truncate">{name}</h3>
-          <div className="flex items-center gap-3 text-xs">
+          <div className="flex items-center gap-2 text-xs">
             <span className="flex items-center gap-1">
               {followerCount} <h5 className="font-semibold">Followers</h5>
             </span>
@@ -55,7 +58,22 @@ const University = ({
       </div>
 
       {/* Follow Button */}
-      <div>follohw</div>
+      <FollowUniversityButton uniName={name} />
     </div>
+  );
+};
+
+const FollowUniversityButton = ({ uniName }) => {
+  const { user } = useAuthContext();
+
+  return (
+    <Button
+      bg="bg-transparent"
+      height="h-[1.5rem]"
+      className="!rounded-full hover:opacity-[0.7] transition-all text-xs border border-bgVariant2"
+      onClick={() => followUniversity(user.id, uniName)}
+    >
+      Follow
+    </Button>
   );
 };
