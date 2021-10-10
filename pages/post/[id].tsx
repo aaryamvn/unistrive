@@ -27,10 +27,6 @@ const PostPage = ({
   comments: (CommentEntity & { commentUser: UserEntity })[];
   creator: UserEntity;
 }) => {
-  console.log(id);
-  console.log(post);
-  console.log(comments);
-
   const router = useRouter();
   const [newComment, setNewComment] = useState<string>();
   const [isHidden, setIsHidden] = useState<boolean>(true);
@@ -107,7 +103,13 @@ const PostPage = ({
             const commentUser = comment.commentUser;
             if (!commentUser) return <p></p>;
             return (
-              <div className="flex items-center space-y-2 gap-3" key={i}>
+              <div
+                className={`flex items-center px-6 gap-3 ${
+                  post.answeredCommentId == comment.id ? `border rounded` : ""
+                }`}
+                style={{ borderColor: "green" }}
+                key={i}
+              >
                 <div className="flex flex-col items-center gap-2">
                   <img
                     src="/icons/upvote.svg"

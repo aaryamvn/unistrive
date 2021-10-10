@@ -4,7 +4,7 @@ import { universitiesCollection } from "../collections";
 export const getAllUniversities = async (): Promise<UniversityEntity[]> => {
   const unis = (await universitiesCollection.get()).docs;
 
-  let filteredUnis: UniversityEntity[] = []
+  let filteredUnis: UniversityEntity[] = [];
   unis.map((uni) => {
     filteredUnis.push(uni.data());
   });
