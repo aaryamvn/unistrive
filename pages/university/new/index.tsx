@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { Button } from "../../../components/Button";
 import { TextBox } from "../../../components/TextBox";
@@ -5,6 +6,8 @@ import { useAuthContext } from "../../../contexts/AuthContext";
 import { createUniversity } from "../../../firestore/universities/createUniversity";
 
 const NewUniversity = () => {
+  const router = useRouter();
+
   const [name, setName] = useState<string>("");
   const [bannerUrl, setBannerUrl] = useState<string>("");
   const [logoUrl, setLogoUrl] = useState<string>("");
@@ -55,20 +58,25 @@ const NewUniversity = () => {
           </h1>
 
           <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              createUniversity({
-                name,
-                bannerUrl,
-                logoUrl,
-                linkedInProfile,
-                bio,
-                creatorId: user.id,
-                email: user.email,
-                followerIds: [],
-                studentIds: [],
-                postIds: [],
-              });
+            onSubmit={async (e) => {
+              try {
+                e.preventDefault();
+                await createUniversity({
+                  name,
+                  bannerUrl,
+                  logoUrl,
+                  linkedInProfile,
+                  bio,
+                  creatorId: user.id,
+                  email: user.email,
+                  followerIds: [],
+                  studentIds: [],
+                  postIds: [],
+                });
+                return router.push(`/university/${name}`);
+              } catch (err) {
+                console.error(err);
+              }
             }}
             className="w-full mt-6 flex flex-col gap-6"
           >
