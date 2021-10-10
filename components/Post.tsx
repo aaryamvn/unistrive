@@ -38,7 +38,7 @@ export const Post: React.FC<PostProps> = ({
       setCreator(await findUserById(creatorId));
       setUniversity(await findUniversityByName(universityName));
     })();
-  }, [creatorId, universityName ]);
+  }, [creatorId, universityName]);
 
   console.log("creator", creator);
   console.log("university", university);
