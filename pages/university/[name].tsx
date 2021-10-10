@@ -45,5 +45,5 @@ export async function getServerSideProps(context: NextPageContext) {
   const university = await findUniversityByName(name as string);
   return { props: { university } };
 }
-
+ 
 export default UniversityPage;

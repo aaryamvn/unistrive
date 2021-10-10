@@ -3,6 +3,7 @@ import { Navbar } from "../components/Navbar";
 import { useRouter } from "next/router";
 import { useAuthContext } from "../contexts/AuthContext";
 import { useEffect } from "react";
+import { BannerSection } from "../components/university/BannerSection";
 
 const Index = () => {
   const router = useRouter();
@@ -19,7 +20,9 @@ const Index = () => {
   return (
     <div>
       <Navbar />
-      <div className="relative h-[calc(100vh-4rem)] w-screen container mx-auto flex items-center justify-center">
+      <div className="relative w-screen">
+        <BannerSection userProfile />
+        <div className="mx-auto flex justify-center gap-2 mt-4 overflow-y-auto">
         <div className="md:w-[30rem] xl:w-[40rem] flex flex-col gap-[1rem]">
           <h1
             className="md:text-[2rem] xl:text-[2.5rem] font-extrabold"
@@ -38,9 +41,14 @@ const Index = () => {
           className="absolute bottom-0 right-5"
           alt=""
         />
+        </div>
+      </div>
+      <div className="relative h-[calc(100vh-4rem)] w-screen container mx-auto flex items-center justify-center">
+        
       </div>
     </div>
   );
 };
+
 
 export default Index;
