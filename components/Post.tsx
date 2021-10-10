@@ -1,7 +1,10 @@
 import React from "react";
+import { useAuthContext } from "../contexts/AuthContext";
 import { UserEntity } from "../entities/UserEntity";
+import { upvotePost } from "../firestore/posts/upvotePost";
 
 interface PostProps {
+  id: string;
   title: string;
   content: string;
   creator: UserEntity;
@@ -19,9 +22,12 @@ export const Post: React.FC<PostProps> = ({
   universityName,
   universityLogoUrl,
   title,
+  id,
   showCommentsButton = true,
   upvotesAmt,
 }) => {
+  const { user } = useAuthContext();
+
   return (
     <div className="w-full rounded-md p-4 bg-bgVariant1 flex items-center gap-4">
       {/* Upvotes */}
@@ -29,7 +35,9 @@ export const Post: React.FC<PostProps> = ({
         <img
           src="/icons/upvote.svg"
           alt=""
-          className="h-2 w-2 text-white fill-current"
+          className="h-2 w-2 text-white fill-current cursor-pointer select-none"
+          draggable="false"
+          onClick={() => upvotePost(user?.id, id)}
         />
         <h3 className="text-sm font-semibold">{upvotesAmt}</h3>
       </div>
