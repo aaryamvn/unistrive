@@ -1,22 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useAuthContext } from "../../contexts/AuthContext";
+import { UniversityEntity } from "../../entities/UniversityEntity";
+import { getAllUniversities } from "../../firestore/universities/getAllUniversities";
 import { followUniversity } from "../../firestore/users/followUniversity";
 import { Button } from "../Button";
 
 export const SidePanel = () => {
+  const [unis, setUnis] = useState<UniversityEntity[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      const retrievedUnis = await getAllUniversities();
+      setUnis(retrievedUnis.slice(0, 4));
+    })();
+  }, []);
+
   return (
     <div className="w-[19.5rem]">
       <div className="rounded-md bg-bgVariant1 p-5 flex flex-col gap-4">
         <h3 className="capitalize font-bold text-muted1 text-md truncate">
           Relevant Universities
         </h3>
-        <University
-          id="jhbgjhsd"
-          name="Harvard"
-          followerCount={69}
-          studentCount={420}
-          logoUrl="https://media.designrush.com/inspirations/129681/conversions/_1523543112_460_harvard-preview.jpg"
-        />
+        {unis.map((uni) => {
+          return (
+            <University
+              id={uni?.id}
+              name={uni?.name}
+              followerCount={uni?.followerIds?.length}
+              studentCount={uni?.studentIds?.length}
+              logoUrl={uni?.logoUrl}
+            />
+          );
+        })}
       </div>
     </div>
   );
