@@ -1,5 +1,6 @@
 import { NextPageContext } from "next";
 import { useEffect, useState } from "react";
+import { Button } from "../../components/Button";
 import { Navbar } from "../../components/Navbar";
 import { Post } from "../../components/Post";
 import { useAuthContext } from "../../contexts/AuthContext";
@@ -31,7 +32,7 @@ const PostPage = ({
 
   const router = useRouter();
   const [newComment, setNewComment] = useState<string>();
-  const [updatingState, setUpdatingState] = useState<boolean>(false);
+  const [isHidden, setIsHidden] = useState<boolean>(true);
   const refreshData = () => {
     router.replace(router.asPath);
   };
@@ -66,8 +67,15 @@ const PostPage = ({
             />
           </div>
           {user && user.accountType === "consultant" && (
+            <h3
+              className="mb-4 text-xl mt-10 font-semibold text-gray-900 underline"
+              onClick={() => setIsHidden(!isHidden)}
+            >
+              {isHidden ? "Create a comment" : "Hide text box"}
+            </h3>
+          )}
+          {!isHidden && user && user.accountType === "consultant" && (
             <form
-              className="mt-10"
               onSubmit={async (e) => {
                 e.preventDefault();
                 await createComment({
@@ -79,16 +87,15 @@ const PostPage = ({
                 refreshData();
               }}
             >
-              <h3 className="mx-auto text-xl">Create Comment</h3>
               <textarea
-                placeholder="Enter A Description"
+                placeholder="Enter a comment"
                 className="h-60 bg-bgVariant1 text-bgVariantInverted1 rounded-md outline-none border-none p-5 w-full"
                 value={newComment}
                 onChange={(e) => setNewComment(e.target.value)}
               />
-              <button className="bg-accent1 w-40" type="submit">
-                <h3 className="mx-auto text-lg">Create Comment</h3>
-              </button>
+              <Button bg="bg-accent1" width="w-60" type="submit">
+                <h3 className="mx-auto text-lg">Create Post</h3>
+              </Button>
             </form>
           )}
           <h3 className="mb-4 text-3xl mt-10 font-semibold text-gray-900">
