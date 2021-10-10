@@ -6,11 +6,14 @@ export const upvoteComment = async (
   commentId: string,
 ): Promise<string> => {
   const comment = await findCommentById(commentId);
+  if (!comment.upvoterIds) comment.upvoterIds = [];
+
   if (userId in comment.upvoterIds) {
     return "Already Upvoted";
   } else {
     let upvoterIds = comment.upvoterIds;
     upvoterIds.push(userId);
+
     commentsCollection.doc(commentId).update({ upvoterIds });
   }
 };

@@ -12,6 +12,7 @@ import { findPostById } from "../../firestore/posts/findPostById";
 import { findUserById } from "../../firestore/users/findUserById";
 import moment from "moment";
 import { useRouter } from "next/router";
+import { upvoteComment } from "../../firestore/comments/upvoteComment";
 
 const PostPage = ({
   id,
@@ -27,6 +28,7 @@ const PostPage = ({
   console.log(id);
   console.log(post);
   console.log(comments);
+
   const router = useRouter();
   const [newComment, setNewComment] = useState<string>();
   const [updatingState, setUpdatingState] = useState<boolean>(false);
@@ -97,7 +99,21 @@ const PostPage = ({
             const commentUser = comment.commentUser;
             if (!commentUser) return <p></p>;
             return (
-              <div className="space-y-4" key={i}>
+              <div className="flex items-center space-y-2 gap-3" key={i}>
+                <div className="flex flex-col items-center gap-2">
+                  <img
+                    src="/icons/upvote.svg"
+                    alt=""
+                    className="h-2 w-2 text-white fill-current cursor-pointer select-none"
+                    draggable="false"
+                    onClick={async () => {
+                      await upvoteComment(user?.id, comment.id);
+                    }}
+                  />
+                  <h3 className="text-sm font-semibold">
+                    {comment.upvoterIds?.length || 0}
+                  </h3>
+                </div>
                 <div className="flex py-2">
                   <div className="flex-shrink-0 mr-3">
                     <img
