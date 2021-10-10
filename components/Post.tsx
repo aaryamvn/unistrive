@@ -2,6 +2,7 @@ import React from "react";
 import { useAuthContext } from "../contexts/AuthContext";
 import { UserEntity } from "../entities/UserEntity";
 import Link from "next/link";
+import { upvotePost } from "../firestore/posts/upvotePost";
 
 interface PostProps {
   id: string;
@@ -48,15 +49,15 @@ export const Post: React.FC<PostProps> = ({
           {/* university */}
           <Link href={`/university/${universityName}`}>
             <a>
-          <div className="flex items-center">
-            <img
-              src={universityLogoUrl}
-              alt=""
-              className="h-5 w-5 object-cover rounded-sm mr-1"
-            />
-            <span className="font-semibold">{universityName}</span>
-          </div>
-          </a>
+              <div className="flex items-center">
+                <img
+                  src={universityLogoUrl}
+                  alt=""
+                  className="h-5 w-5 object-cover rounded-sm mr-1"
+                />
+                <span className="font-semibold">{universityName}</span>
+              </div>
+            </a>
           </Link>
 
           {/* user */}
