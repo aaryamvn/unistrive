@@ -27,6 +27,7 @@ const PostPage = ({
   console.log(post);
   console.log(comments);
 
+
   const [newComment, setNewComment] = useState<string>();
   const [commentUser, setCommentUser] = useState<UserEntity>();
 
@@ -62,9 +63,9 @@ const PostPage = ({
           {user && user.accountType === "consultant" && (
             <form
               className="mt-10"
-              onSubmit={(e) => {
+              onSubmit={async (e) => {
                 e.preventDefault();
-                createComment({
+                await createComment({
                   content: newComment,
                   creatorId: user.id,
                   postId: id,
