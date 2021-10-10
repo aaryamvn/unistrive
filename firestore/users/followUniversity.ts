@@ -19,7 +19,7 @@ export const followUniversity = async (
     // user part
     let followingUnis: string[] = user.followingUniNames || [];
     if (!(universityName in followingUnis)) {
-      console.log(followingUnis )
+      console.log(followingUnis);
       followingUnis.push(universityName);
       userDoc.set({ followngUniNames: followingUnis });
 
@@ -27,7 +27,7 @@ export const followUniversity = async (
       let followers: string[] = university.followerIds || [];
       if (!(userId in followers)) {
         followers.push(userId);
-        universityDoc.update({ followerIds: followers });
+        universityDoc.set({ followerIds: followers });
       }
     }
   }

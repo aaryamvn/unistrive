@@ -1,6 +1,7 @@
 import { useAuthContext } from "../../contexts/AuthContext";
 import { UniversityEntity } from "../../entities/UniversityEntity";
 import { followUniversity } from "../../firestore/users/followUniversity";
+import { isFollowingUniversity } from "../../firestore/users/isFollowingUniversity";
 import { Button } from "../Button";
 
 export const FollowUniversityButton = ({
@@ -21,7 +22,7 @@ export const FollowUniversityButton = ({
       className="!rounded-full text-bg hover:opacity-[0.7] transition-all"
       onClick={() => followUniversity(user.id, university.name)}
     >
-      {user?.followingUniNames?.includes(university.name) ? (
+      {isFollowingUniversity?(
         <span className="flex items-center gap-2">
           <img
             src="/icons/checkmark.svg"
@@ -29,8 +30,7 @@ export const FollowUniversityButton = ({
             className="h-[1.3rem] w-[1.3rem]"
           />
           Following
-        </span>
-      ) : (
+        </span>):(
         <span className="flex items-center gap-2">
           <img
             src="/icons/follow_user.svg"
@@ -38,8 +38,7 @@ export const FollowUniversityButton = ({
             className="h-[1.3rem] w-[1.3rem]"
           />
           Follow University
-        </span>
-      )}
+        </span>)}
     </Button>
   );
 };
