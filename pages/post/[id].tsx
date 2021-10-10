@@ -108,6 +108,7 @@ const PostPage = ({
                     draggable="false"
                     onClick={async () => {
                       await upvoteComment(user?.id, comment.id);
+                      refreshData();
                     }}
                   />
                   <h3 className="text-sm font-semibold">
