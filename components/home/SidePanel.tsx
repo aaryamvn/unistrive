@@ -24,6 +24,7 @@ export const SidePanel = () => {
         {unis?.map((uni, i) => {
           return (
             <University
+              key={uni?.id}
               id={uni?.id}
               name={uni?.name}
               followerCount={uni?.followerIds?.length}
