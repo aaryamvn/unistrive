@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React from "react";
+import { useAuthContext } from "../../contexts/AuthContext";
 import { UniversityEntity } from "../../entities/UniversityEntity";
 import { CreatePostButton } from "./CreatePostButton";
 
@@ -8,6 +9,8 @@ export const UniDetailsSection = ({
 }: {
   university: UniversityEntity;
 }) => {
+  const { user } = useAuthContext();
+
   return (
     <div className="w-[19.5rem]">
       <div className="rounded-md bg-bgVariant1 p-5 flex flex-col gap-4">
@@ -23,7 +26,7 @@ export const UniDetailsSection = ({
         </div>
 
         {/* MEMBERS */}
-        <div className="flex items-center gap-10 pb-4 border-b border-bgVariant2">
+        <div className="flex items-center gap-10">
           <span className="flex flex-col font-semibold">
             <h4 className="text-md">{university?.followerIds.length || 0}</h4>
             <h5 className="text-xs">Followers</h5>
@@ -41,13 +44,15 @@ export const UniDetailsSection = ({
         </div>
 
         {/* CREATE POST BUTTON */}
-        <div className="flex items-center justify-between">
-          <Link href={`/post/new/${university.name}`} passHref>
-            <a className="w-full">
-              <CreatePostButton />
-            </a>
-          </Link>
-        </div>
+        {user?.accountType === "highschooler" && (
+          <div className="flex items-center justify-between pt-4 border-t border-bgVariant2">
+            <Link href={`/post/new/${university.name}`} passHref>
+              <a className="w-full">
+                <CreatePostButton />
+              </a>
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );
