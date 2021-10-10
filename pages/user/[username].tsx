@@ -2,37 +2,18 @@
 import { NextPageContext } from "next";
 import { useState } from "react";
 import { Navbar } from "../../components/Navbar";
+import { ConsultantProfileEntity } from "../../entities/ConsultantProfileEntity";
+import { HighschoolerProfileEntity } from "../../entities/HighschoolerProfileEntity";
 import { PostEntity } from "../../entities/PostEntity";
 // import { ConsultantProfileEntity } from "../../entities/ConsultantProfileEntity";
 // import { HighschoolerProfileEntity } from "../../entities/HighschoolerProfileEntity";
 import { UserEntity } from "../../entities/UserEntity";
+import { findConsultantProfileByUserId } from "../../firestore/consultantProfiles/findConsultantProfileByUserId";
+import { findHighschoolerProfileByUserId } from "../../firestore/highschoolerProfiles/findHighschoolerProfileByUserId";
 // import { findPostsByCreator } from "../../firestore/posts/findPostsByCreator";
-// import { findConsultantProfileById } from "../../firestore/consultantProfiles/findConsultantProfileById";
-// import { findHighschoolerProfileById } from "../../firestore/highschoolerProfiles/findHighschoolerProfileById";
 import { findUserByUsername } from "../../firestore/users/findUserByUsername";
 
-const UserPage = ({ username }) => {
-  // const router = useRouter();
-
-  // const { username } = router.query;
-  console.log("username: ", username);
-  const [user, setUser] = useState<UserEntity>(null);
-
-  //   const [highschoolerProfile, setHighschoolerProfile] =
-  //     useState<HighschoolerProfileEntity>();
-  //   const [consultantProfile, setConsultantProfile] =
-  //     useState<ConsultantProfileEntity>();
-
-  const [posts, setPosts] = useState<PostEntity[]>([]);
-
-  const getUser = async (name: string) => {
-    const user = await findUserByUsername(username as string);
-    console.log("user from db: ", user);
-    setUser(user);
-  };
-
-  getUser(username);
-
+const UserPage = ({ user, consultantProfile, highschoolerProfile }) => {
   return (
     <div>
       <Navbar />
@@ -42,15 +23,23 @@ const UserPage = ({ username }) => {
         </div>
         <ProfileCard
           user={user}
-          // highschoolerProfile={highschoolerProfile}
-          // consultantProfile={consultantProfile}
+          highschoolerProfile={highschoolerProfile}
+          consultantProfile={consultantProfile}
         />
       </div>
     </div>
   );
 };
 
-const ProfileCard = ({ user }: { user: UserEntity }) => {
+const ProfileCard = ({
+  user,
+  highschoolerProfile,
+  consultantProfile,
+}: {
+  user: UserEntity;
+  highschoolerProfile?: HighschoolerProfileEntity;
+  consultantProfile?: ConsultantProfileEntity;
+}) => {
   console.log("profile", user);
 
   return (
@@ -74,16 +63,15 @@ const ProfileCard = ({ user }: { user: UserEntity }) => {
         </div>
       </div>
 
-      {/* <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2">
         {user?.accountType === "consultant" && (
           <div className="flex flex-col">
-            <h5 className="font-semibold text-sm">Unicoins</h5>
-            <span className="text-muted1 text-xs">
-              {consultantProfile?.unicoins}
-            </span>
+            <h5 className="font-semibold text-sm">
+              {consultantProfile?.unicoins || 0} Unicoins
+            </h5>
           </div>
         )}
-      </div> */}
+      </div>
     </div>
   );
 };
@@ -92,5 +80,17 @@ export default UserPage;
 
 export async function getServerSideProps(context: NextPageContext) {
   const { username } = context.query;
-  return { props: { username } };
+
+  const user = await findUserByUsername(username as string);
+  const consultantProfile = await findConsultantProfileByUserId(user?.id);
+  const highschoolerProfile = await findHighschoolerProfileByUserId(user?.id);
+
+  // undefined is not serializable.
+  return {
+    props: {
+      user,
+      consultantProfile: consultantProfile || null,
+      highschoolerProfile: highschoolerProfile || null,
+    },
+  };
 }
