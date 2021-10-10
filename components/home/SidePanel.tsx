@@ -11,7 +11,7 @@ export const SidePanel = () => {
   useEffect(() => {
     (async () => {
       const retrievedUnis = await getAllUniversities();
-      setUnis(retrievedUnis.slice(0, 4));
+      setUnis(retrievedUnis?.slice(0, 4));
     })();
   }, []);
 
@@ -21,7 +21,7 @@ export const SidePanel = () => {
         <h3 className="capitalize font-bold text-muted1 text-md truncate">
           Relevant Universities
         </h3>
-        {unis.map((uni) => {
+        {unis?.map((uni) => {
           return (
             <University
               id={uni?.id}
