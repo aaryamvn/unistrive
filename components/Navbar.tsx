@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { useAuthContext } from "../contexts/AuthContext";
 import { Logo } from "./Logo";
 import Link from "next/link";
+import { findConsultantProfileById } from "../firestore/consultantProfiles/findConsultantProfileById";
+import { findConsultantProfileByUserId } from "../firestore/consultantProfiles/findConsultantProfileByUserId";
 
 export const Navbar = () => {
   return (
