@@ -18,5 +18,5 @@ export const findPosts = async (userId: string): Promise<PostEntity[]> => {
   // wait for all the posts to get pushed
   let posts = (await Promise.all(unresolvedPosts)).flat();
 
-  return posts as any;
+  return posts;
 };
