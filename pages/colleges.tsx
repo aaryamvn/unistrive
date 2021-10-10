@@ -1,17 +1,20 @@
-import {  useState } from "react";
+import { useEffect, useState } from "react";
 import { Navbar } from "../components/Navbar";
+import { UniDetailsSection } from "../components/university/UniDetailsSection";
 import { UniversityEntity } from "../entities/UniversityEntity";
 import { getAllUniversities } from "../firestore/universities/getAllUniversities";
 
 export const Login = () => {
   const [universities, setUniversities] = useState<UniversityEntity[]>();
 
-  const getUniversities = async () => {
-    const universities = await getAllUniversities();
-    setUniversities(universities);
-  };
+  useEffect(() => {
+    const getUniversities = async () => {
+      const universities = await getAllUniversities();
+      setUniversities(universities);
+    };
 
-  getUniversities()
+    getUniversities();
+  }, []);
 
   return (
     <>
@@ -29,6 +32,10 @@ export const Login = () => {
             Here is a list of colleges who have registered with Unistrive
           </p>
         </div>
+        {universities &&
+          universities.map((university, i) => {
+            return <UniDetailsSection university={university} key={i} />;
+          })}
       </div>
     </>
   );
