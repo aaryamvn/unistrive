@@ -9,6 +9,7 @@ import { UserEntity } from "../entities/UserEntity";
 import { OnboardingStage1 } from "../components/onboarding/OnboardingStage1";
 import { OnboardingStage2 } from "../components/onboarding/OnboardingStage2";
 import { OnboardingStage3 } from "../components/onboarding/OnboardingStage3";
+import { addStudentToUniversity } from "../firestore/universities/addStudentToUniversity";
 
 export const Onboarding = () => {
   const router = useRouter();
@@ -60,7 +61,7 @@ export const Onboarding = () => {
 
     if (accountType === "highschooler") {
       highschoolerProfile = await createHighschoolerProfile({
-        userId: user.id,
+        userId: user?.id,
         schoolName,
       });
 
@@ -70,10 +71,12 @@ export const Onboarding = () => {
 
     if (accountType === "consultant") {
       consultantProfile = await createConsultantProfile({
-        userId: user.id,
+        userId: user?.id,
         courseName,
         universityName: uniName,
       });
+
+      await addStudentToUniversity(user?.id, uniName);
 
       console.log(consultantProfile);
       updatedUser.consultantProfileId = consultantProfile.id;
