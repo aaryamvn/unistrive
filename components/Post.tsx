@@ -92,7 +92,9 @@ export const Post: React.FC<PostProps> = ({
 
         {/* Title */}
         <Link href={`/post/${id}`} passHref>
-          <h1 className="text-lg font-bold trunctate">{title}</h1>
+          <h1 className="text-lg font-bold trunctate cursor-pointer">
+            {title}
+          </h1>
         </Link>
 
         {/* Content */}
