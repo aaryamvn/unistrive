@@ -6,9 +6,9 @@ export const addStudentToUniversity = async (
   universityName: string,
 ) => {
   const university = await findUniversityByName(universityName);
-  const universityDoc = universitiesCollection.doc(university.id);
 
   if (university) {
+    const universityDoc = universitiesCollection.doc(university.id);
     const studentIds: string[] = university.studentIds || [];
 
     if (!studentIds.includes(userId)) {

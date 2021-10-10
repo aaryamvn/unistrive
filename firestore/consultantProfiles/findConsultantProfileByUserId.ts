@@ -8,5 +8,5 @@ export const findConsultantProfileByUserId = async (
     .where("userId", "==", id)
     .get();
 
-  return doc.docs[0].data() as any;
+  return doc.docs[0]?.data() as any;
 };

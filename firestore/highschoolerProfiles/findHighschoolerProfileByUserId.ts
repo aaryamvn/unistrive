@@ -7,5 +7,6 @@ export const findHighschoolerProfileByUserId = async (
   const doc = await highschoolerProfilesCollection
     .where("userId", "==", id)
     .get();
-  return doc as any;
+
+  return doc.docs[0]?.data() as any;
 };
