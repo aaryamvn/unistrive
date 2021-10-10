@@ -107,11 +107,9 @@ const NewUniversity = () => {
                 onChange={(e) => setBio(e.target.value)}
               ></textarea>
             </div>
-            <input type="submit">
-              <Button bg="bg-accent1" width="w-full">
+              <Button bg="bg-accent1" width="w-full" type="submit">
                 <h3 className="mx-auto text-lg">Create Univeristy</h3>
               </Button>
-            </input>
           </form>
         </div>
       </div>
