@@ -91,7 +91,7 @@ const PostPage = ({
                 onChange={(e) => setNewComment(e.target.value)}
               />
               <Button bg="bg-accent1" width="w-60" type="submit">
-                <h3 className="mx-auto text-lg">Create Post</h3>
+                <h3 className="mx-auto text-lg">Create Comment</h3>
               </Button>
             </form>
           )}
