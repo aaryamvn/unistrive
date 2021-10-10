@@ -66,10 +66,9 @@ const ProfileCard = ({
       <div className="flex items-center gap-2">
         {user?.accountType === "consultant" && (
           <div className="flex flex-col">
-            <h5 className="font-semibold text-sm">Unicoins</h5>
-            <span className="text-muted1 text-xs">
-              {consultantProfile?.unicoins}
-            </span>
+            <h5 className="font-semibold text-sm">
+              {consultantProfile?.unicoins || 0} Unicoins
+            </h5>
           </div>
         )}
       </div>
