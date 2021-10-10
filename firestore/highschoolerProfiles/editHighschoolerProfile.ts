@@ -2,7 +2,7 @@ import { HighschoolerProfileEntity } from "../../entities/HighschoolerProfileEnt
 import { highschoolerProfilesCollection } from "../collections";
 
 export const editHighschoolerProfile = async (
-  data: HighschoolerProfileEntity,
+  data: object,
   id: string,
 ) => {
   const doc = highschoolerProfilesCollection.doc(id).update(data);
