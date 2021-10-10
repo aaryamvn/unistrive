@@ -3,6 +3,7 @@ import { Navbar } from "../components/Navbar";
 import { UniDetailsSection } from "../components/university/UniDetailsSection";
 import { UniversityEntity } from "../entities/UniversityEntity";
 import { getAllUniversities } from "../firestore/universities/getAllUniversities";
+import Link from "next/link";
 
 export const Login = () => {
   const [universities, setUniversities] = useState<UniversityEntity[]>();
@@ -19,8 +20,8 @@ export const Login = () => {
   return (
     <>
       <Navbar />
-      <div className="relative h-screen mx-auto flex items-center justify-center">
-        <div className="md:w-[30rem] xl:w-[40rem] flex flex-col gap-[1rem]">
+      <div className="mx-auto flex flex-col">
+        <div className="md:w-[30rem] xl:w-[40rem] flex flex-col gap-[1rem] mx-auto pt-20">
           <h1
             className="md:text-[2rem] xl:text-[2.5rem] font-extrabold"
             style={{ fontFamily: "'Poppins', sans-serif" }}
@@ -29,13 +30,26 @@ export const Login = () => {
           </h1>
 
           <p className="text-muted1 md:text-[1.2rem] xl:text-[1.4rem]">
-            Here is a list of colleges who have registered with Unistrive
+            A list of colleges who have registered with Unistrive
           </p>
+          <div className="flex items-center gap-2 mx-auto pt-10">
+            {universities &&
+              universities.map((university, i) => {
+                return (
+                  <Link href={`/university/${university.name}`} key={i}>
+                    <a>
+                      <UniDetailsSection
+                        university={university}
+                        height="17rem"
+                        showCreatePost={false}
+                        showAboutTextHeader={false}
+                      />
+                    </a>
+                  </Link>
+                );
+              })}
+          </div>
         </div>
-        {universities &&
-          universities.map((university, i) => {
-            return <UniDetailsSection university={university} key={i} />;
-          })}
       </div>
     </>
   );

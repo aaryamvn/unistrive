@@ -9,12 +9,12 @@ export const Navbar = () => {
       <div className="flex items-center justify-between h-[4rem] pb-1">
         <Logo />
         <div className="pl-6 pt-1">
-          <Link href="colleges" passHref>
+          <Link href="/colleges" passHref>
             <p className="font-bold">Universities</p>
           </Link>
         </div>
         <div className="pl-6 pt-1">
-          <Link href="colleges" passHref>
+          <Link href="/colleges/new" passHref>
             <p className="font-bold">Create a New University</p>
           </Link>
         </div>
