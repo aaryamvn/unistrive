@@ -1,12 +1,22 @@
-import { Button } from "../components/Button";
 import { Navbar } from "../components/Navbar";
 import { useRouter } from "next/router";
 import { useAuthContext } from "../contexts/AuthContext";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { MainSection } from "../components/home/MainSection";
+import { PostEntity } from "../entities/PostEntity";
+import { findPosts } from "../firestore/posts/findPosts";
 
 const Index = () => {
   const router = useRouter();
-  const { user, logout } = useAuthContext();
+  const { user } = useAuthContext();
+
+  // posts
+  const [posts, setPosts] = useState<PostEntity[]>([]);
+
+  // make an array of all the posts from the users followed unis
+  useEffect(() => {
+    (async () => setPosts(await findPosts(user?.id)))();
+  }, []);
 
   useEffect(() => {
     if (!user) router.push("/login");
@@ -17,27 +27,12 @@ const Index = () => {
   }
 
   return (
-    <div>
+    <div className="overflow-x-hidden">
       <Navbar />
-      <div className="relative h-[calc(100vh-4rem)] w-screen container mx-auto flex items-center justify-center">
-        <div className="md:w-[30rem] xl:w-[40rem] flex flex-col gap-[1rem]">
-          <h1
-            className="md:text-[2rem] xl:text-[2.5rem] font-extrabold"
-            style={{ fontFamily: "'Poppins', sans-serif" }}
-          >
-            Welcome {user?.displayName}
-          </h1>
-
-          <Button bg="bg-accent1" width="w-[8rem]" onClick={logout}>
-            <h3>Logout</h3>
-          </Button>
+      <div className="relative w-screen">
+        <div className="mx-auto flex justify-center gap-2 mt-4 overflow-y-auto">
+          <MainSection posts={posts} />
         </div>
-
-        <img
-          src="/call_hand_vector.png"
-          className="absolute bottom-0 right-5"
-          alt=""
-        />
       </div>
     </div>
   );
