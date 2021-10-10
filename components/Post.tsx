@@ -38,7 +38,7 @@ export const Post: React.FC<PostProps> = ({
       setCreator(await findUserById(creatorId));
       setUniversity(await findUniversityByName(universityName));
     })();
-  }, []);
+  }, [creatorId, universityName ]);
 
   console.log("creator", creator);
   console.log("university", university);
@@ -86,7 +86,9 @@ export const Post: React.FC<PostProps> = ({
         </div>
 
         {/* Title */}
-        <h1 className="text-lg font-bold trunctate">{title}</h1>
+        <Link href={`/post/${id}`} passHref>
+          <h1 className="text-lg font-bold trunctate">{title}</h1>
+        </Link>
 
         {/* Content */}
         <p className="text-muted1 text-md font-regular">{content}</p>

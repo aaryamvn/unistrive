@@ -6,16 +6,5 @@ import { findConsultantProfileById } from "../consultantProfiles/findConsultantP
 export const createComment = async (data: CommentEntity) => {
   const doc = await commentsCollection.add(data);
   commentsCollection.doc(doc.id).update({ id: doc.id });
-
-  const consultant = await findConsultantProfileById(data.creatorId);
-  let commentsByConsultant = consultant.createdCommentIds;
-  commentsByConsultant.push(doc.id);
-
-  editConsultantProfile(
-    { createdCommentIds: commentsByConsultant },
-    data.creatorId,
-  );
-
-  console.log(doc);
   return doc;
 };
