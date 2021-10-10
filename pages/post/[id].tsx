@@ -1,5 +1,5 @@
 import { NextPageContext } from "next";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Navbar } from "../../components/Navbar";
 import { Post } from "../../components/Post";
 import { useAuthContext } from "../../contexts/AuthContext";
@@ -11,6 +11,7 @@ import { findCommentsByPost } from "../../firestore/comments/findCommentsByPost"
 import { findPostById } from "../../firestore/posts/findPostById";
 import { findUserById } from "../../firestore/users/findUserById";
 import moment from "moment";
+import { useRouter } from "next/router";
 
 const PostPage = ({
   id,
@@ -20,16 +21,18 @@ const PostPage = ({
 }: {
   id: string;
   post: PostEntity;
-  comments: CommentEntity[];
+  comments: (CommentEntity & { commentUser: UserEntity })[];
   creator: UserEntity;
 }) => {
   console.log(id);
   console.log(post);
   console.log(comments);
-
+  const router = useRouter();
   const [newComment, setNewComment] = useState<string>();
-  const [commentUser, setCommentUser] = useState<UserEntity>();
-
+  const [updatingState, setUpdatingState] = useState<boolean>(false);
+  const refreshData = () => {
+    router.replace(router.asPath);
+  };
   const { user, isLoading } = useAuthContext();
 
   if (isLoading) {
@@ -57,6 +60,7 @@ const PostPage = ({
               title={post.title}
               id={post.id}
               upvotesAmt={post.upvoterIds.length}
+              refreshCb={() => refreshData()}
             />
           </div>
           {user && user.accountType === "consultant" && (
@@ -70,6 +74,7 @@ const PostPage = ({
                   postId: id,
                   createdOn: Date(),
                 });
+                refreshData();
               }}
             >
               <h3 className="mx-auto text-xl">Create Comment</h3>
@@ -89,28 +94,24 @@ const PostPage = ({
           </h3>
 
           {comments.map((comment, i) => {
-            const updateState = async () => {
-              const commentUserFromDb = await findUserById(comment.creatorId);
-              setCommentUser(commentUserFromDb);
-            };
-            updateState();
-
+            const commentUser = comment.commentUser;
+            if (!commentUser) return <p></p>;
             return (
               <div className="space-y-4" key={i}>
                 <div className="flex py-2">
                   <div className="flex-shrink-0 mr-3">
                     <img
                       className="mt-4 rounded-full w-8 h-8 sm:w-10 sm:h-10"
-                      src={commentUser?.avatarUrl}
+                      src={commentUser.avatarUrl}
                       alt=""
                     />
                   </div>
                   <div className="flex-1 rounded-lg px-4 py-2 sm:px-6 sm:py-4 leading-relaxed">
-                    <strong>{commentUser?.displayName}</strong>{" "}
+                    <strong>{commentUser.displayName}</strong>{" "}
                     <span className="text-xs text-gray-400">
                       {moment(comment.createdOn).fromNow()}
                     </span>
-                    <p className="text-sm">{comment?.content}</p>
+                    <p className="text-sm">{comment.content}</p>
                   </div>
                 </div>
               </div>
@@ -125,8 +126,16 @@ const PostPage = ({
 export async function getServerSideProps(context: NextPageContext) {
   const { id } = context.query;
   const post = await findPostById(id as string);
-  const comments = await findCommentsByPost(post?.id);
+  let comments = await findCommentsByPost(post?.id);
   const creator = await findUserById(post?.creatorId);
+  comments = await Promise.all(
+    comments.map(async (c) => {
+      return {
+        ...c,
+        commentUser: await findUserById(c.creatorId),
+      };
+    }),
+  );
 
   return { props: { id, post, comments, creator } };
 }

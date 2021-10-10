@@ -16,6 +16,7 @@ interface PostProps {
   upvotesAmt?: number;
   commentsAmt?: number;
   showCommentsButton?: boolean;
+  refreshCb?: () => void;
 }
 
 export const Post: React.FC<PostProps> = ({
@@ -27,6 +28,7 @@ export const Post: React.FC<PostProps> = ({
   id,
   showCommentsButton = true,
   upvotesAmt,
+  refreshCb,
 }) => {
   const { user } = useAuthContext();
 
@@ -52,7 +54,10 @@ export const Post: React.FC<PostProps> = ({
           alt=""
           className="h-2 w-2 text-white fill-current cursor-pointer select-none"
           draggable="false"
-          onClick={() => upvotePost(user?.id, id)}
+          onClick={async () => {
+            await upvotePost(user?.id, id);
+            refreshCb();
+          }}
         />
         <h3 className="text-sm font-semibold">{upvotesAmt}</h3>
       </div>
