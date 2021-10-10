@@ -142,8 +142,11 @@ const PostPage = ({
                 <div className="flex flex-col items-center gap-2">
                   <svg
                     onClick={async () => {
-                      await markPostAnswered(post.id, comment.id);
-                      refreshData();
+                      // Only post creator can mark answer as answered
+                      if (creator.id == user.id) {
+                        await markPostAnswered(post.id, comment.id);
+                        refreshData();
+                      }
                     }}
                     className="text-white fill-current cursor-pointer select-none"
                     aria-hidden="true"
