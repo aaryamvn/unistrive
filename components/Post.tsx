@@ -1,7 +1,7 @@
 import React from "react";
 import { useAuthContext } from "../contexts/AuthContext";
 import { UserEntity } from "../entities/UserEntity";
-import { upvotePost } from "../firestore/posts/upvotePost";
+import Link from "next/link";
 
 interface PostProps {
   id: string;
@@ -46,6 +46,8 @@ export const Post: React.FC<PostProps> = ({
         {/* Header */}
         <div className="flex items-center gap-3">
           {/* university */}
+          <Link href={`/university/${universityName}`}>
+            <a>
           <div className="flex items-center">
             <img
               src={universityLogoUrl}
@@ -54,10 +56,17 @@ export const Post: React.FC<PostProps> = ({
             />
             <span className="font-semibold">{universityName}</span>
           </div>
+          </a>
+          </Link>
 
           {/* user */}
           <span>
-            Posted by <span className="font-semibold">{creator?.username}</span>
+            Posted by{" "}
+            <Link href={`/user/${creator?.username}`}>
+              <a>
+                <span className="font-semibold">{creator?.username}</span>
+              </a>
+            </Link>
           </span>
         </div>
 
