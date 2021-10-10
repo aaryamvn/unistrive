@@ -32,7 +32,7 @@ const UniversityPage = ({ university }: { university: UniversityEntity }) => {
       <div className="relative w-screen">
         <BannerSection university={university} />
         <div className="mx-auto flex justify-center gap-2 mt-4 overflow-y-auto">
-          <MainSection />
+          <MainSection posts={posts} />
           <UniDetailsSection university={university} />
         </div>
       </div>
