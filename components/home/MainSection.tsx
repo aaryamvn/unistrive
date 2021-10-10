@@ -14,7 +14,7 @@ export const MainSection = ({ posts }: { posts: PostEntity[] }) => {
             content={post?.content}
             creatorId={post.creatorId}
             universityName={post?.universityName}
-            upvotesAmt={post?.upvoterIds?.length}
+            upvotesAmt={post?.upvoterIds.length}
           />
         );
       })}

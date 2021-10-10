@@ -101,18 +101,20 @@ export const Post: React.FC<PostProps> = ({
         <p className="text-muted1 text-md font-regular">{content}</p>
 
         {/* Comments Button */}
-        <Link href={`/post/${id}`}>
-          <div className="flex items-center gap-2 cursor-pointer p-2 rounded-sm hover:opacity-[0.7] font-regular text-sm">
-            <img
-              src="/icons/replies.svg"
-              alt=""
-              className="h-[0.9rem] w-[0.9rem] select-none"
-              draggable="false"
-            />
+        {showCommentsButton && (
+          <Link href={`/post/${id}`}>
+            <div className="flex items-center gap-2 cursor-pointer p-2 rounded-sm hover:opacity-[0.7] font-regular text-sm">
+              <img
+                src="/icons/replies.svg"
+                alt=""
+                className="h-[0.9rem] w-[0.9rem] select-none"
+                draggable="false"
+              />
 
-            {`View ${commentsAmt || 0} replies`}
-          </div>
-        </Link>
+              {`View all replies`}
+            </div>
+          </Link>
+        )}
       </div>
     </div>
   );
