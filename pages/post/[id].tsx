@@ -4,18 +4,22 @@ import { Navbar } from "../../components/Navbar";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { CommentEntity } from "../../entities/CommentEntity";
 import { PostEntity } from "../../entities/PostEntity";
+import { UserEntity } from "../../entities/UserEntity";
 import { createComment } from "../../firestore/comments/createComment";
 import { findCommentsByPost } from "../../firestore/comments/findCommentsByPost";
 import { findPostById } from "../../firestore/posts/findPostById";
+import { findUserById } from "../../firestore/users/findUserById";
 
 const PostPage = ({
   id,
   post,
   comments,
+  creator,
 }: {
   id: string;
   post: PostEntity;
   comments: CommentEntity[];
+  creator: UserEntity;
 }) => {
   console.log(id);
   console.log(post);
@@ -68,10 +72,16 @@ const PostPage = ({
                     <span className="ml-2">{post.universityName}</span>
                   </a>
                   <span className="text-grey-light mx-1 text-xxs">•</span>
-                  <span className="text-grey">Posted by</span>
-                  <a className="text-grey mx-1 no-underline hover:underline">
-                    Divy Srivastava
-                  </a>
+
+                  {creator && (
+                    <>
+                      <span className="text-grey">Posted by</span>
+                      <a className="text-grey mx-1 no-underline hover:underline">
+                        {creator?.displayName}
+                      </a>
+                    </>
+                  )}
+
                   <span className="text-grey">{post.createdOn}</span>
                 </div>
                 <div>
@@ -140,7 +150,9 @@ export async function getServerSideProps(context: NextPageContext) {
   const { id } = context.query;
   const post = await findPostById(id as string);
   const comments = await findCommentsByPost(post?.id);
-  return { props: { id, post, comments } };
+  const creator = await findUserById(post?.creatorId);
+
+  return { props: { id, post, comments, creator } };
 }
 
 export default PostPage;
