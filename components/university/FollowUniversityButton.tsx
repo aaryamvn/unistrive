@@ -12,7 +12,7 @@ export const FollowUniversityButton = ({
   const { user } = useAuthContext();
 
   if (!user) {
-    return <></>
+    return <></>;
   }
 
   return (
@@ -22,7 +22,7 @@ export const FollowUniversityButton = ({
       className="!rounded-full text-bg hover:opacity-[0.7] transition-all"
       onClick={() => followUniversity(user.id, university.name)}
     >
-      {isFollowingUniversity?(
+      {isFollowingUniversity ? (
         <span className="flex items-center gap-2">
           <img
             src="/icons/checkmark.svg"
@@ -30,7 +30,8 @@ export const FollowUniversityButton = ({
             className="h-[1.3rem] w-[1.3rem]"
           />
           Following
-        </span>):(
+        </span>
+      ) : (
         <span className="flex items-center gap-2">
           <img
             src="/icons/follow_user.svg"
@@ -38,7 +39,8 @@ export const FollowUniversityButton = ({
             className="h-[1.3rem] w-[1.3rem]"
           />
           Follow University
-        </span>)}
+        </span>
+      )}
     </Button>
   );
 };

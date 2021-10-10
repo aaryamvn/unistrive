@@ -12,9 +12,10 @@ export const isFollowingUniversity = async (
   // Same implementation
   const university = await findUniversityByName(universityName);
 
-  if (universityName in user.followingUniNames) {
-    if (!(userId in university.followerIds)) {
-      return true;
-    }
+  if (
+    user.followingUniNames.includes(universityName) &&
+    university.followerIds.includes(userId)
+  ) {
+    return true;
   }
 };
