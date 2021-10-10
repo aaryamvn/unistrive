@@ -8,7 +8,7 @@ export const upvoteComment = async (
   commentId: string,
 ): Promise<string> => {
   const comment = await findCommentById(commentId);
-
+ 
   if (!comment.upvoterIds) comment.upvoterIds = [];
 
   if (userId in comment.upvoterIds) {

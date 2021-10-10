@@ -7,6 +7,6 @@ export const findConsultantProfileByUserId = async (
   const doc = await consultantProfilesCollection
     .where("userId", "==", id)
     .get();
-
+  
   return doc.docs[0].data() as any;
 };
