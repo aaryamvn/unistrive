@@ -6,7 +6,8 @@ export const upvotePost = async (
   postId: string,
 ): Promise<string> => {
   const post = await findPostById(postId);
-  if (userId in post.upvoterIds) {
+  if (post.upvoterIds.includes(postId )
+  ) {
     return "Already Upvoted";
   } else {
     let upvoterIds = post.upvoterIds;
