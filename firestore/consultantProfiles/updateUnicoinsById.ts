@@ -6,6 +6,6 @@ export const updateUnicoins = async (id: string) => {
   if (!consultant.unicoins) consultant.unicoins = 0;
 
   const unicoins = consultant.unicoins + 1;
-  
+
   consultantProfilesCollection.doc(consultant.documentId).update({ unicoins });
 };

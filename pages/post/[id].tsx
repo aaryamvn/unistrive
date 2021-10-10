@@ -13,6 +13,7 @@ import { findUserById } from "../../firestore/users/findUserById";
 import moment from "moment";
 import { useRouter } from "next/router";
 import { upvoteComment } from "../../firestore/comments/upvoteComment";
+import { markPostAnswered } from "../../firestore/posts/markAnswer";
 
 const PostPage = ({
   id,
@@ -130,6 +131,34 @@ const PostPage = ({
                     </span>
                     <p className="text-sm">{comment.content}</p>
                   </div>
+                </div>
+                <div className="flex flex-col items-center gap-2">
+                  <svg
+                    onClick={async () => {
+                      await markPostAnswered(post.id, comment.id);
+                      refreshData();
+                    }}
+                    className="text-white fill-current cursor-pointer select-none"
+                    aria-hidden="true"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    version="1.1"
+                    width="16"
+                    data-view-component="true"
+                  >
+                    <path
+                      fill={
+                        comment.id == post.answeredCommentId ? "green" : "white"
+                      }
+                      fill-rule="evenodd"
+                      d="M8 16A8 8 0 108 0a8 8 0 000 16zm3.78-9.72a.75.75 0 00-1.06-1.06L6.75 9.19 5.28 7.72a.75.75 0 00-1.06 1.06l2 2a.75.75 0 001.06 0l4.5-4.5z"
+                    ></path>
+                  </svg>
+                  {comment.id == post.answeredCommentId && (
+                    <h3 className="text-sm font-semibold">
+                      Marked as answered!
+                    </h3>
+                  )}
                 </div>
               </div>
             );
