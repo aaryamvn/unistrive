@@ -16,7 +16,7 @@ const Index = () => {
   // make an array of all the posts from the users followed unis
   useEffect(() => {
     (async () => setPosts(await findPosts(user?.id)))();
-  }, []);
+  }, [user?.id, ]);
 
   useEffect(() => {
     if (!user) router.push("/login");
