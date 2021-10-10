@@ -17,7 +17,7 @@ const ProfileSection = () => {
 
   return user ? (
     <div className="flex items-center gap-2">
-      <Link href={`/user/${user.username}`}>
+      <Link href={`/user/${user.username}`} passHref>
         <img
           src={user.avatarUrl}
           alt=""

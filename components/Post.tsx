@@ -66,7 +66,7 @@ export const Post: React.FC<PostProps> = ({
         {/* Header */}
         <div className="flex items-center gap-3">
           {/* university */}
-          <Link href={`/university/${university?.name}`}>
+          <Link href={`/university/${university?.name}`} passHref>
             <a>
               <div className="flex items-center">
                 <img
@@ -82,7 +82,7 @@ export const Post: React.FC<PostProps> = ({
           {/* user */}
           <span>
             Posted by{" "}
-            <Link href={`/user/${creator?.username}`}>
+            <Link href={`/user/${creator?.username}`} passHref>
               <a>
                 <span className="font-semibold">{creator?.username}</span>
               </a>
@@ -102,7 +102,7 @@ export const Post: React.FC<PostProps> = ({
 
         {/* Comments Button */}
         {showCommentsButton && (
-          <Link href={`/post/${id}`}>
+          <Link href={`/post/${id}`} passHref>
             <div className="flex items-center gap-2 cursor-pointer p-2 rounded-sm hover:opacity-[0.7] font-regular text-sm">
               <img
                 src="/icons/replies.svg"
