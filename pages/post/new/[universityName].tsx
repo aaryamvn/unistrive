@@ -1,18 +1,19 @@
 import { NextPageContext } from "next";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { Button } from "../../../components/Button";
 import { TextBox } from "../../../components/TextBox";
 import { useAuthContext } from "../../../contexts/AuthContext";
 import { createPost } from "../../../firestore/posts/createPost";
-import { createUniversity } from "../../../firestore/universities/createUniversity";
 
 const NewUniversity = ({ universityName }: { universityName: string }) => {
+  const router = useRouter();
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
 
   const { user, login } = useAuthContext();
 
-  if (!user) {
+  if (!user || user.accountType === "consultant") {
     return (
       <div className="relative h-screen w-screen container mx-auto flex items-center justify-center">
         <div className="md:w-[30rem] xl:w-[40rem] flex flex-col gap-[1rem]">
@@ -20,7 +21,7 @@ const NewUniversity = ({ universityName }: { universityName: string }) => {
             className="md:text-[2rem] xl:text-[2.5rem] font-extrabold"
             style={{ fontFamily: "'Poppins', sans-serif" }}
           >
-            Sign In to View this page
+            Sign in from a high school student profile to create new posts
           </h1>
 
           <Button bg="bg-accent1" width="w-[13rem]" onClick={login}>
@@ -53,9 +54,9 @@ const NewUniversity = ({ universityName }: { universityName: string }) => {
           </h1>
 
           <form
-            onSubmit={(e) => {
+            onSubmit={async (e) => {
               e.preventDefault();
-              createPost({
+              const postId = await createPost({
                 creatorId: user.id,
                 universityName: universityName,
                 title,
@@ -65,6 +66,7 @@ const NewUniversity = ({ universityName }: { universityName: string }) => {
                 createdOn: Date(),
                 updatedOn: Date(),
               });
+              return router.push(`/posts/${postId}`)
             }}
             className="w-full mt-6 flex flex-col gap-6"
           >
@@ -85,9 +87,9 @@ const NewUniversity = ({ universityName }: { universityName: string }) => {
                 onChange={(e) => setContent(e.target.value)}
               ></textarea>
             </div>
-              <Button bg="bg-accent1" width="w-full" type="submit">
-                <h3 className="mx-auto text-lg">Create Post</h3>
-              </Button>
+            <Button bg="bg-accent1" width="w-full" type="submit">
+              <h3 className="mx-auto text-lg">Create Post</h3>
+            </Button>
           </form>
         </div>
       </div>

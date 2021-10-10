@@ -3,7 +3,7 @@ import { postsCollection } from "../collections";
 import { editHighschoolerProfile } from "../highschoolerProfiles/editHighschoolerProfile";
 import { findHighschoolerProfileById } from "../highschoolerProfiles/findHighschoolerProfileById";
 
-export const createPost = async (data: PostEntity) => {
+export const createPost = async (data: PostEntity): Promise<string> => {
   const doc = await postsCollection.add(data);
   postsCollection.doc(doc.id).update({ id: doc.id });
 
@@ -13,5 +13,5 @@ export const createPost = async (data: PostEntity) => {
 
   editHighschoolerProfile({ createdPostIds: postsByStudent }, data.creatorId);
   console.log(doc);
-  return doc;
+  return doc.id;
 };
