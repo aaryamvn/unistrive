@@ -1,16 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useAuthContext } from "../contexts/AuthContext";
 import { UserEntity } from "../entities/UserEntity";
 import Link from "next/link";
 import { upvotePost } from "../firestore/posts/upvotePost";
+import { findUserById } from "../firestore/users/findUserById";
+import { findUniversityByName } from "../firestore/universities/findUniversityByName";
+import { UniversityEntity } from "../entities/UniversityEntity";
 
 interface PostProps {
   id: string;
   title: string;
   content: string;
-  creator: UserEntity;
+  creatorId: string;
   universityName: string;
-  universityLogoUrl: string;
   upvotesAmt?: number;
   commentsAmt?: number;
   showCommentsButton?: boolean;
@@ -19,15 +21,24 @@ interface PostProps {
 export const Post: React.FC<PostProps> = ({
   commentsAmt,
   content,
-  creator,
+  creatorId,
   universityName,
-  universityLogoUrl,
   title,
   id,
   showCommentsButton = true,
   upvotesAmt,
 }) => {
   const { user } = useAuthContext();
+
+  let creator: UserEntity;
+  let university: UniversityEntity;
+
+  useEffect(() => {
+    (async () => {
+      creator = await findUserById(creatorId);
+      university = await findUniversityByName(universityName);
+    })();
+  }, []);
 
   return (
     <div className="w-full rounded-md p-4 bg-bgVariant1 flex items-center gap-4">
@@ -47,15 +58,15 @@ export const Post: React.FC<PostProps> = ({
         {/* Header */}
         <div className="flex items-center gap-3">
           {/* university */}
-          <Link href={`/university/${universityName}`}>
+          <Link href={`/university/${university?.name}`}>
             <a>
               <div className="flex items-center">
                 <img
-                  src={universityLogoUrl}
+                  src={university?.logoUrl}
                   alt=""
                   className="h-5 w-5 object-cover rounded-sm mr-1"
                 />
-                <span className="font-semibold">{universityName}</span>
+                <span className="font-semibold">{university?.name}</span>
               </div>
             </a>
           </Link>
