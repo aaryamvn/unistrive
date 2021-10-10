@@ -1,5 +1,6 @@
 import { commentsCollection } from "../collections";
-import { findHighschoolerProfileByUserId } from "../highschoolerProfiles/findHighschoolerProfileByUserId";
+import { updateUnicoins } from "../consultantProfiles/updateUnicoinsById";
+import { findConsultantProfileByUserId } from "../consultantProfiles/findConsultantProfileByUserId";
 import { findCommentById } from "./findCommentById";
 
 export const upvoteComment = async (
@@ -7,7 +8,7 @@ export const upvoteComment = async (
   commentId: string,
 ): Promise<string> => {
   const comment = await findCommentById(commentId);
-
+ 
   if (!comment.upvoterIds) comment.upvoterIds = [];
 
   if (userId in comment.upvoterIds) {
@@ -15,6 +16,7 @@ export const upvoteComment = async (
   } else {
     let upvoterIds = comment.upvoterIds;
     upvoterIds.push(userId);
-    commentsCollection.doc(commentId).update({ upvoterIds });
+    await commentsCollection.doc(commentId).update({ upvoterIds });
+    updateUnicoins(comment.creatorId);
   }
 };
