@@ -10,12 +10,14 @@ export const Navbar = () => {
         <Logo />
         <div className="pl-6 pt-1">
           <Link href="/colleges" passHref>
-            <p className="font-bold">Universities</p>
+            <p className="font-semibold cursor-pointer">Universities</p>
           </Link>
         </div>
         <div className="pl-6 pt-1">
-          <Link href="/colleges/new" passHref>
-            <p className="font-bold">Create a New University</p>
+          <Link href="/university/new" passHref>
+            <p className="font-semibold cursor-pointer">
+              Create a New University
+            </p>
           </Link>
         </div>
       </div>

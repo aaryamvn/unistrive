@@ -21,14 +21,16 @@ export const SidePanel = () => {
         <h3 className="capitalize font-bold text-muted1 text-md truncate">
           Relevant Universities
         </h3>
-        {unis?.map((uni) => {
+        {unis?.map((uni, i) => {
           return (
             <University
+              key={uni?.id}
               id={uni?.id}
               name={uni?.name}
               followerCount={uni?.followerIds?.length}
               studentCount={uni?.studentIds?.length}
               logoUrl={uni?.logoUrl}
+              isFinalUniOfList={i === unis?.length - 1}
             />
           );
         })}
