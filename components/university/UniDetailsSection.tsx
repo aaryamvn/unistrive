@@ -44,7 +44,7 @@ export const UniDetailsSection = ({
         </div>
 
         {/* CREATE POST BUTTON */}
-        {user.accountType === "highschooler" && (
+        {user?.accountType === "highschooler" && (
           <div className="flex items-center justify-between pt-4 border-t border-bgVariant2">
             <Link href={`/post/new/${university.name}`} passHref>
               <a className="w-full">
