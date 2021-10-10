@@ -8,6 +8,7 @@ export interface PostEntity {
   content: string;
   upvoterIds: string[];
   commentIds?: string[];
+  answeredCommentId?: string;
 
   createdOn: string;
   updatedOn: string;
