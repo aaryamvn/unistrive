@@ -7,6 +7,13 @@ export const SidePanel = () => {
         <h3 className="capitalize font-bold text-muted1 text-md truncate">
           Relevant Universities
         </h3>
+        <University
+          id="jhbgjhsd"
+          name="Harvard"
+          followerCount={69}
+          studentCount={420}
+          logoUrl="https://media.designrush.com/inspirations/129681/conversions/_1523543112_460_harvard-preview.jpg"
+        />
       </div>
     </div>
   );
@@ -18,7 +25,7 @@ const University = ({
   logoUrl,
   followerCount,
   studentCount,
-  isFinalUniOfList,
+  isFinalUniOfList = false,
 }) => {
   return (
     <div
@@ -33,14 +40,14 @@ const University = ({
           className="h-10 w-10 object-cover rounded-md"
         />
 
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col">
           <h3 className="font-bold text-lg truncate">{name}</h3>
-          <div className="flex items-center gap-3">
-            <span>
+          <div className="flex items-center gap-3 text-xs">
+            <span className="flex items-center gap-1">
               {followerCount} <h5 className="font-semibold">Followers</h5>
             </span>
 
-            <span>
+            <span className="flex items-center gap-1">
               {studentCount} <h5 className="font-semibold">Students</h5>
             </span>
           </div>
