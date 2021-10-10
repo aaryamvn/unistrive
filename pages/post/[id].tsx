@@ -16,10 +16,12 @@ const PostPage = ({
   id,
   post,
   comments,
+  creator,
 }: {
   id: string;
   post: PostEntity;
   comments: CommentEntity[];
+  creator: UserEntity;
 }) => {
   console.log(id);
   console.log(post);
@@ -124,7 +126,9 @@ export async function getServerSideProps(context: NextPageContext) {
   const { id } = context.query;
   const post = await findPostById(id as string);
   const comments = await findCommentsByPost(post?.id);
-  return { props: { id, post, comments } };
+  const creator = await findUserById(post?.creatorId);
+
+  return { props: { id, post, comments, creator } };
 }
 
 export default PostPage;

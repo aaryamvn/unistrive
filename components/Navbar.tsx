@@ -1,6 +1,7 @@
 import React from "react";
 import { useAuthContext } from "../contexts/AuthContext";
 import { Logo } from "./Logo";
+import Link from "next/link";
 
 export const Navbar = () => {
   return (
@@ -16,11 +17,13 @@ const ProfileSection = () => {
 
   return user ? (
     <div className="flex items-center gap-2">
-      <img
-        src={user.avatarUrl}
-        alt=""
-        className="h-7 w-7 rounded-full object-contain"
-      />
+      <Link href={`/user/${user.username}`}>
+        <img
+          src={user.avatarUrl}
+          alt=""
+          className="h-7 w-7 rounded-full object-contain"
+        />
+      </Link>
       <img
         src="/icons/caret_down.svg"
         alt=""

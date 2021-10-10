@@ -66,7 +66,7 @@ const NewUniversity = ({ universityName }: { universityName: string }) => {
                 createdOn: Date(),
                 updatedOn: Date(),
               });
-              return router.push(`/posts/${postId}`)
+              return router.push(`/posts/${postId}`);
             }}
             className="w-full mt-6 flex flex-col gap-6"
           >

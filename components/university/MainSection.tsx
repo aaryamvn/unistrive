@@ -8,6 +8,7 @@ export const MainSection = ({ posts }: { posts: PostEntity[] }) => {
       {posts.map((post) => {
         return (
           <Post
+            key={post?.id}
             id={post?.id}
             title={post?.title}
             content={post?.content}
